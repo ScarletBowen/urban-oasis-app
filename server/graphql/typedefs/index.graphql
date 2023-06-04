@@ -1,30 +1,24 @@
-input Pagination {
-  page: Int!
-  items: Int!
-}
-input UserFilter {
-  firstName: String
-  lastName: String
-}
 type User {
-  firstName: String!
-  lastName: String!
+  user_id: String!
+  username: String!
+  fullname: String!
   password: String!
-  email: String!
 }
+
 type AuthPayload {
   token: String!
   user: User!
 }
+
 type Query {
-  getUserList(search: UserFilter, pagination: Pagination, sort: String): [User]
+  getUser: [User]
 }
+
 type Mutation {
   register(
-    firstName: String!
-    lastName: String!
-    email: String!
+    username: String!
+    fullname: String!
     password: String!
   ): AuthPayload!
-  login(email: String!, password: String!): AuthPayload!
+  login(username: String!, password: String!): AuthPayload!
 }

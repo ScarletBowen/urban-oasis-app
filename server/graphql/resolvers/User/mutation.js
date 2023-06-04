@@ -2,27 +2,25 @@ const models = require("../../../models");
 var jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-async function register(root, { firstName, lastName, email, password }) {
+async function register(root, { username, fullname, password }) {
   try {
-    const oldUser = await models.User.findOne({ email });
+    const oldUser = await models.User.findOne({ username });
     if (oldUser) {
-      throw new Error("Email or Employee id already exists");
+      throw new Error("Username already exists");
     }
     const user = await models.User.create({
-      firstName,
-      lastName,
-      email,
+      username,
+      fullname,
       password: await bcrypt.hash(password, 10),
     });
     const token = jwt.sign(
-      { user_id: user._id, email: user.email },
+      { user_id: user._id, username: user.username },
       process.env.JWT_SECRET,
       { expiresIn: "1y" }
     );
     let createdUser = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
+      user_id: user._id,
+      username: user.username,
     };
 
     return {
@@ -35,12 +33,11 @@ async function register(root, { firstName, lastName, email, password }) {
   }
 }
 
-async function login(_, { email, password }) {
+async function login(_, { username, password }) {
   try {
-    const user = await models.User.findOne({ email });
-
+    const user = await models.User.findOne({ username });
     if (!user) {
-      throw new Error("No user with that email");
+      throw new Error("No user with that username");
     }
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
@@ -48,13 +45,18 @@ async function login(_, { email, password }) {
     }
 
     // return jwt
-    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { user_id: user._id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
     return {
       token,
-      user,
+      user: {
+        user_id: user._id,
+        username: user.username,
+      },
     };
   } catch (error) {
     throw new Error(error.message);
