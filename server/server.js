@@ -1,15 +1,39 @@
-const express = require('express');
-const path = require('path');
+const { ApolloServer } = require("apollo-server-express");
 
-const app = express();
+const fs = require("fs");
+const path = require("path");
+require("dotenv").config();
+require("./config/database").connect();
+const app = require("express")();
+
 const port = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+const gqlFiles = fs.readdirSync(path.join(__dirname, "./graphql/typedefs"));
+let typeDefs = "";
+gqlFiles.forEach((file) => {
+  typeDefs += fs.readFileSync(
+    path.join(__dirname, "./graphql/typedefs", file),
+    {
+      encoding: "utf8",
+    }
+  );
 });
 
+const resolvers = require("./graphql/resolvers");
+
+let apolloServer = {
+  graphqlPath: "",
+};
+
+async function startServer() {
+  apolloServer = new ApolloServer({ typeDefs, resolvers });
+  await apolloServer.start();
+  apolloServer.applyMiddleware({ app, path: "/graphql" });
+}
+startServer();
+
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(
+    `🚀 Server ready at http://localhost:${port}${apolloServer.graphqlPath}`
+  );
 });
