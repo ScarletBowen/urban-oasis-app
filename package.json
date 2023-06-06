@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "leaflet": "^1.9.4",
-    "react-leaflet": "^4.2.1"
+    "react-leaflet": "^4.2.1",
+    "react-stripe-js": "^1.1.5",
+    "stripe": "^12.8.0"
   }
 }
