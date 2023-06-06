@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const placeSchema = require("./Place");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, default: null },

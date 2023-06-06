@@ -1,15 +1,15 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-    type User {
-        _id: ID!
-        email: String!
-        location: String
-        description: String
-        friendCount: Int
-        friends: [User]
-        savedPlaces: [Place]
+    type Comment {
+    _id: ID!
+    commentBody: String!
+    username: String!
+    createdAt: String
+    place_id: String
+    author: [User]!
     }
+
     type Place {
         placeId: String
         placeName: String
@@ -31,6 +31,8 @@ const typeDefs = gql`
     type Mutation {
         savePlace(input: PlaceInput!): User
         removePlace(placeId: String!): User
+        addComment(commentBody: String!, place_id: String!): User
+        removeComment(commentId: ID!): User
     }
 `;
 
