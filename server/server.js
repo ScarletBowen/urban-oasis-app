@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
 require("./config/database").connect();
+
 const app = require("express")();
 
 const port = process.env.PORT || 3000;

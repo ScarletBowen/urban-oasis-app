@@ -1,4 +1,5 @@
 const { UserQuery, UserMutation } = require("./User");
+const { PlaceMutation } = require("./Place");
 
 const resolvers = {
   Query: {
@@ -6,6 +7,7 @@ const resolvers = {
   },
   Mutation: {
     ...UserMutation,
+    ...PlaceMutation,
   },
 };
 
