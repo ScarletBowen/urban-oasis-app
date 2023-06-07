@@ -1,8 +1,8 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { StripeProvider } from './donations/StripeProvider';
-import DonationForm from './donations/DonationForm';
+import { StripeProvider } from './StripeProvider';
+import DonationForm from './DonationForm';
 
 function App() {
   return (
