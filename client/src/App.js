@@ -1,51 +1,67 @@
-import React from "react";
+import React from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { setContext } from '@apollo/client/link/context';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
 
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import * as parkData from "./data/parks.json";
-import "./app.css";
+
+// import pages and components
+import Home from './pages/Home';
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
+import Error from './pages/Error';
 
 
 
-export default function App() {
-  const [activePark, setActivePark] = React.useState(null);
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
+
+function App() {
 
   return (
-    <Map center={[45.4, -75.7]} zoom={12}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      />
-
-      {parkData.features.map(park => (
-        <Marker
-          key={park.properties.PARK_ID}
-          position={[
-            park.geometry.coordinates[1],
-            park.geometry.coordinates[0]
-          ]}
-          onClick={() => {
-            setActivePark(park);
-          }}
-          
-        />
-      ))}
-
-      {activePark && (
-        <Popup
-          position={[
-            activePark.geometry.coordinates[1],
-            activePark.geometry.coordinates[0]
-          ]}
-          onClose={() => {
-            setActivePark(null);
-          }}
-        >
-          <div>
-            <h2>{activePark.properties.NAME}</h2>
-            <p>{activePark.properties.DESCRIPTION}</p>
-          </div>
-        </Popup>
-      )}
-    </Map>
+    <ApolloProvider client={client}>
+      <Router>
+        <div>
+          <Routes>
+            <Route
+              path= "/"
+              element= {<Home />}
+              errorElement= {<Error />}
+            />
+            <Route
+              path= "/signin"
+              element= {<Signin />}
+            />
+            <Route
+              path= "/signup"
+              element= {<Signup />}
+            />
+          </Routes>
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 }
+
+export default App;
