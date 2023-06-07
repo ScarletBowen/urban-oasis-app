@@ -8,8 +8,7 @@ import {
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+
 
 // import pages and components
 import Home from './pages/Home';
@@ -39,18 +38,8 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   return (
-    // <MapContainer
-    //   center={[51.505, -0.09]}
-    //   zoom={13}
-    //   style={{ height: '100vh', width: '100%' }}
-    // >
-    //   <TileLayer
-    //     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    //     attribution="Map data © <a href=&quot;https://openstreetmap.org&quot;>OpenStreetMap</a> contributors"
-    //   />
-    //   <Marker position={[51.505, -0.09]} />
-    // </MapContainer>
     <ApolloProvider client={client}>
       <Router>
         <div>
