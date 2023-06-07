@@ -10,7 +10,7 @@ import { GET_ME } from '../utils/queries';
 // import components
 import Nav from '../components/Nav';
 // import Footer from '../components/Footer'; 
-import MyProfileCard from '../components/MyProfileCard';
+// import MyProfileCard from '../components/MyProfileCard';
 
 
 const MyProfile = () => {
