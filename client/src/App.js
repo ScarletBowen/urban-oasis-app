@@ -20,7 +20,7 @@ function App() {
       </MapContainer>
       <StripeProvider>
         <div className="App">
-          <h1>Donation Form</h1>
+          <h1>Donation</h1>
           <DonationForm />
         </div>
       </StripeProvider>
