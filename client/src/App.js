@@ -15,6 +15,7 @@ import Home from './pages/Home';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Error from './pages/Error';
+import Nav from './components/Nav';
 
 
 
@@ -43,6 +44,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
+          <Nav />
           <Routes>
             <Route
               path= "/"
