@@ -1,21 +1,51 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import React from "react";
+import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
-function App() {
+import * as parkData from "./data/parks.json";
+import "./app.css";
+
+
+
+export default function App() {
+  const [activePark, setActivePark] = React.useState(null);
+
   return (
-    <MapContainer
-      center={[51.505, -0.09]}
-      zoom={13}
-      style={{ height: '100vh', width: '100%' }}
-    >
+    <Map center={[45.4, -75.7]} zoom={12}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="Map data © <a href=&quot;https://openstreetmap.org&quot;>OpenStreetMap</a> contributors"
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={[51.505, -0.09]} />
-    </MapContainer>
+
+      {parkData.features.map(park => (
+        <Marker
+          key={park.properties.PARK_ID}
+          position={[
+            park.geometry.coordinates[1],
+            park.geometry.coordinates[0]
+          ]}
+          onClick={() => {
+            setActivePark(park);
+          }}
+          
+        />
+      ))}
+
+      {activePark && (
+        <Popup
+          position={[
+            activePark.geometry.coordinates[1],
+            activePark.geometry.coordinates[0]
+          ]}
+          onClose={() => {
+            setActivePark(null);
+          }}
+        >
+          <div>
+            <h2>{activePark.properties.NAME}</h2>
+            <p>{activePark.properties.DESCRIPTION}</p>
+          </div>
+        </Popup>
+      )}
+    </Map>
   );
 }
-
-export default App;
