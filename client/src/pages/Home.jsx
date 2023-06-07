@@ -6,7 +6,6 @@ import MapBox from "../components/Map";
 const Home = () => {
   
   return (
-    <Nav />
     <MapBox />
   );
 }
