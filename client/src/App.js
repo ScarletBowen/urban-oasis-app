@@ -1,15 +1,19 @@
 
-import React from 'react';
-import { RouterProvider } from 'react-router-dom';
-import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import { setContext } from "@apollo/client/link/context";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-} from '@apollo/client';
-
+} from "@apollo/client";
 
 // import pages and components
 import Home from './pages/Home';
@@ -25,15 +29,15 @@ import Mapbox from './components/Mapbox';
 
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: "/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem("id_token");
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -44,38 +48,18 @@ const client = new ApolloClient({
 });
 
 function App() {
-
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
           <Nav />
           <Routes>
-            <Route
-              path= "/"
-              element= {<Home />}
-              errorElement= {<Error />}
-            />
-            <Route
-              path= "/signin"
-              element= {<Signin />}
-            />
-            <Route
-              path= "/signup"
-              element= {<Signup />}
-            />
-            <Route
-              path= "/myprofile"
-              element= {<MyProfile />}
-            />
-            <Route
-              path= "/userprofile"
-              element= {<UserProfile />}
-            />
-            <Route
-              path= "/placedetails"
-              element= {<PlaceDetails />}
-            />
+            <Route path="/" element={<Home />} errorElement={<Error />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/myprofile" element={<MyProfile />} />
+            <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/placedetails" element={<PlaceDetails />} />
           </Routes>
         </div>
       </Router>

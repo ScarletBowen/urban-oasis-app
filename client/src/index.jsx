@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-
+import FavoritePlaces from "./pages/FavoritePlaces";
 
 // const client = new ApolloClient({
 //   uri: "http://localhost:3001/graphql",
@@ -15,6 +15,7 @@ root.render(
   //   <RouterProvider router={router} />
   // </ApolloProvider>
   <React.StrictMode>
-    <App />
+    {/* <App /> */}]
+    <FavoritePlaces />
   </React.StrictMode>
 );
