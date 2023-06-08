@@ -2,22 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 import ErrorPage from "./Error";
+import { REGISTER_USER } from "../utils/mutations";
 
-const REGISTER_USER = gql`
-  mutation Register(
-    $username: String!
-    $fullname: String!
-    $password: String!
-  ) {
-    register(username: $username, fullname: $fullname, password: $password) {
-      token
-      user {
-        user_id
-        username
-      }
-    }
-  }
-`;
 
 export default function Signup() {
   const navigate = useNavigate();

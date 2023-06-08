@@ -2,18 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 import ErrorPage from "./Error";
+import { LOGIN_USER } from "../utils/mutations";
 
-const LOGIN_USER = gql`
-  mutation Login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      token
-      user {
-        user_id
-        username
-      }
-    }
-  }
-`;
 
 export default function Signin() {
   const navigate = useNavigate();
