@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState } from "react";
 import Nav from "../components/Nav";
-import MapBox from "../components/Map";
+
 
 const Home = () => {
   
   return (
-    <Nav />
-    <MapBox />
+    <div>
+      <h1>Urban Oasis</h1>
+    </div>
+    
   );
 }
 
