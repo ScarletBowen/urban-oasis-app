@@ -21,7 +21,9 @@ const MyProfile = () => {
     // if user is logged in, render MyProfileCard component
     return (
         <div>
-            My Profile Page
+            <h1>My Profile Page</h1>
+            
+
         </div>
     );
 }
