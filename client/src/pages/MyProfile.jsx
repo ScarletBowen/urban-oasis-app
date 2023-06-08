@@ -20,8 +20,22 @@ const MyProfile = () => {
 
     // if user is logged in, render MyProfileCard component
     return (
-        <div>
-            My Profile Page
+        <div className="w-full p-3 flex flex-col items-center">
+            <h1>My Profile</h1>
+            
+            <img src="https://via.placeholder.com/150" alt="placeholder" />
+
+            <div>
+                <h3>Username: username</h3>
+                <h3>Full Name: fullname</h3>
+                <h3>Email: email</h3>
+
+                <h2>Bio</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+            </div>
+        
+            <div>Friend List component</div>
+
         </div>
     );
 }

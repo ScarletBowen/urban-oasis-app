@@ -16,16 +16,16 @@ import {
 } from "@apollo/client";
 
 // import pages and components
-import Home from './pages/Home';
-import Signin from './pages/Signin';
-import Signup from './pages/Signup';
-import MyProfile from './pages/MyProfile';
-import UserProfile from './pages/UserProfile.jsx';
-import PlaceDetails from './pages/PlaceDetails';
-import Error from './pages/Error';
-import Nav from './components/Nav';
-import Mapbox from './components/Mapbox';
-
+import Home from "./pages/Home";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import AboutUs from "./pages/AboutUs";
+import MyProfile from "./pages/MyProfile";
+import UserProfile from "./pages/UserProfile.jsx";
+import PlaceDetails from "./pages/PlaceDetails";
+import FavoritePlaces from "./pages/FavoritePlaces";
+import Error from "./pages/Error";
+import Nav from "./components/Nav";
 
 
 const httpLink = createHttpLink({
@@ -57,9 +57,11 @@ function App() {
             <Route path="/" element={<Home />} errorElement={<Error />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/myprofile" element={<MyProfile />} />
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/placedetails" element={<PlaceDetails />} />
+            <Route path="/favoriteplaces" element={<FavoritePlaces />} />
           </Routes>
         </div>
       </Router>
