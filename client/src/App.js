@@ -20,6 +20,7 @@ import UserProfile from './pages/UserProfile.jsx';
 import PlaceDetails from './pages/PlaceDetails';
 import Error from './pages/Error';
 import Nav from './components/Nav';
+import Mapbox from './components/Mapbox';
 
 
 
