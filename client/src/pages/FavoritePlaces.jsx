@@ -17,7 +17,6 @@ const places = [
 export default function FavoritePlaces() {
   return (
     <div>
-      <Nav />
       <h1 className="w-full text-center text-5xl">Favorite Places</h1>
       <div className="p-8 ">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4">

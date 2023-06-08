@@ -4,7 +4,6 @@ import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
-import FavoritePlaces from "./pages/FavoritePlaces";
 
 // const client = new ApolloClient({
 //   uri: "http://localhost:3001/graphql",
@@ -17,8 +16,7 @@ root.render(
   //   <RouterProvider router={router} />
   // </ApolloProvider>
   <React.StrictMode>
-    {/* <App /> */}]
-    <FavoritePlaces />
+    <App />
   </React.StrictMode>
 );
 

@@ -6,6 +6,7 @@ type User {
     user_id: String!
     username: String!
     fullname: String!
+    email: String!
     password: String!
   }
   
@@ -22,6 +23,7 @@ type User {
     register(
       username: String!
       fullname: String!
+      email: String!
       password: String!
     ): AuthPayload!
     login(username: String!, password: String!): AuthPayload!
