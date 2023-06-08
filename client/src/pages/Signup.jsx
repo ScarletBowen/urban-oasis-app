@@ -10,6 +10,7 @@ export default function Signup() {
 
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repass, setRepass] = useState("");
 
@@ -32,6 +33,7 @@ export default function Signup() {
     register({ variables: { username, fullname, password } });
     setUsername("");
     setFullname("");
+    setEmail("");
     setPassword("");
     setRepass("");
   }
@@ -86,6 +88,24 @@ export default function Signup() {
               </div>
               <div>
                 <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Email
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="JohnDoe@email.com"
+                  required=""
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div>
+                <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
@@ -110,7 +130,7 @@ export default function Signup() {
                   Confirm password
                 </label>
                 <input
-                  type="confirm-password"
+                  type="password"
                   name="confirm-password"
                   id="confirm-password"
                   placeholder="••••••••"

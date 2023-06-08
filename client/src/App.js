@@ -18,6 +18,7 @@ import {
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import AboutUs from "./pages/AboutUs";
 import MyProfile from "./pages/MyProfile";
 import UserProfile from "./pages/UserProfile.jsx";
 import PlaceDetails from "./pages/PlaceDetails";
@@ -54,6 +55,7 @@ function App() {
             <Route path="/" element={<Home />} errorElement={<Error />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/myprofile" element={<MyProfile />} />
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/placedetails" element={<PlaceDetails />} />

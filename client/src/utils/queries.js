@@ -5,15 +5,8 @@ export const GET_ME = gql`
         currentUser {
             _id
             username
+            fullname
             email
-            biography
-            profileImage
-            friendCount
-            friends {
-                _id
-                username
-                profileImage
-            }
         }
     }
 `;
@@ -24,7 +17,6 @@ export const GET_USER = gql`
             _id
             username
             email
-            biography
-            profileImage
     }
+}
 `;
