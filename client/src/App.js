@@ -21,6 +21,7 @@ import Signup from "./pages/Signup";
 import MyProfile from "./pages/MyProfile";
 import UserProfile from "./pages/UserProfile.jsx";
 import PlaceDetails from "./pages/PlaceDetails";
+import FavoritePlaces from "./pages/FavoritePlaces";
 import Error from "./pages/Error";
 import Nav from "./components/Nav";
 
@@ -56,6 +57,7 @@ function App() {
             <Route path="/myprofile" element={<MyProfile />} />
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/placedetails" element={<PlaceDetails />} />
+            <Route path="/favoriteplaces" element={<FavoritePlaces />} />
           </Routes>
         </div>
       </Router>
