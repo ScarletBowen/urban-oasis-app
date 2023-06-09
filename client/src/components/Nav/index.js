@@ -126,28 +126,28 @@ const Nav = () => {
             <div className="flex items-center lg:order-3">
               <Link
                 to={"/aboutus"}
-                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+                className="bg-gray-50 border border-green-300 text-green-800 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-100 dark:focus:ring-green-500 dark:focus:border-green-500"
                 aria-current="page"
               >
                 About us
               </Link>
               <Link
                 to={"/myprofile"}
-                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+                className="bg-gray-50 border border-green-300 text-green-800 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-100 dark:focus:ring-green-500 dark:focus:border-green-500"
                 aria-current="page"
               >
                 My Profile
               </Link>
               <Link
                 to={"/favoriteplaces"}
-                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+                className="bg-gray-50 border border-green-300 text-green-800 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-100 dark:focus:ring-green-500 dark:focus:border-green-500"
                 aria-current="page"
               >
                 My Favorite Places
               </Link>
               <Link
                 to={"/signin"}
-                className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                className="bg-gray-50 border border-green-300 text-green-800 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-green-100 dark:focus:ring-green-500 dark:focus:border-green-500"
               >
                 Sign In
               </Link>

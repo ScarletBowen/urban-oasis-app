@@ -44,8 +44,15 @@ export default function Mapbox() {
                     <Marker key={index} position={marker.geometry.coordinates.reverse()}>
                         <Popup>{marker.properties.name}</Popup>
                     </Marker>
+            
                 ))}
+                
             </MapContainer>
         </div>
     )
 }
+
+
+
+
+
