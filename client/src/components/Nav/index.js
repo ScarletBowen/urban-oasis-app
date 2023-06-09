@@ -82,7 +82,10 @@ function useGeolocation(options = {}) {
   return state;
 }
 
-const Nav = () => {
+function Nav() {
+  
+  
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const locationState = useGeolocation();

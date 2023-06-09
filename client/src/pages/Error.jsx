@@ -1,8 +1,9 @@
-import { useRouteError, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
 
 export default function Error() {
   const error = useRouteError();
-  console.error(error);
+  // console.error(error);
 
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -29,3 +30,4 @@ export default function Error() {
     </section>
   );
 }
+

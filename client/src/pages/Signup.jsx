@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
-import ErrorPage from "./Error";
+import Error from "./Error";
 import { REGISTER_USER } from "../utils/mutations";
 
 
 export default function Signup() {
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -40,7 +39,7 @@ export default function Signup() {
   }
 
   if (loading) return <p>Loading</p>;
-  if (error) return <ErrorPage />;
+  if (error) return <Error />;
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -95,7 +94,7 @@ export default function Signup() {
                   Email
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
