@@ -62,6 +62,7 @@ function App() {
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/placedetails" element={<PlaceDetails />} />
             <Route path="/favoriteplaces" element={<FavoritePlaces />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </div>
       </Router>

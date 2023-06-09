@@ -1,6 +1,6 @@
 const models = require("../models");
 var jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 const resolvers = {
   Query: {
