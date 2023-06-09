@@ -19,7 +19,7 @@ const treeIcon = new Icon({
 });
 
 export default function Mapbox() {
-    const position = [33.685909, -117.824722] // lat/lng for Irvine, CA
+    const position = [33.6814301, -117.8302338] // lat/lng for Irvine, CA
     const { loading, error, data } = useQuery(FINDALLPARKS);
 
     if (loading) return <p>Loading...</p>;
@@ -27,7 +27,8 @@ export default function Mapbox() {
 
     return (
         <div>
-            <MapContainer center={position} zoom={13} >
+            <MapContainer center={position} zoom={12} >
+            
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
