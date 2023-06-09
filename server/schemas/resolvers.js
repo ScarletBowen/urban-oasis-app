@@ -1,19 +1,31 @@
 const models = require("../models");
 var jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const Place = require('../models/Place');
+
 
 const resolvers = {
   Query: {
     getUser: async (root, args, { user }) => {
       try {
         if (!user) throw new Error("You are not authenticated!");
-        // TODO: update later
         return await models.User.findAll({ username: "abc" });
       } catch (error) {
         throw new Error(error.message);
       }
     },
+    searchPlace: async (root, args, { name }) => {
+      try {
+        const places = await Place.find({ 
+          name: { $regex: new RegExp(name, "i") }
+        });
+        return places;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
   },
+  
 
   Mutation: {
     register: async (root, { username, fullname, email, password }) => {
