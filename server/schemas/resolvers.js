@@ -16,7 +16,7 @@ const resolvers = {
         if (!user) throw new Error("You are not authenticated!");
         return await models.User.findAll({ username: "abc" });
       } catch (error) {
-        throw new AuthenticationError("AUTHENTICATION_ERROR");
+        throw new AuthenticationError(error.message);
       }
     },
     searchPlace: async (root, args, { name }) => {
@@ -26,7 +26,7 @@ const resolvers = {
         });
         return places;
       } catch (error) {
-        throw new AuthenticationError("AUTHENTICATION_ERROR");
+        throw new AuthenticationError(error.message);
       }
     },
     searchPlace: async (root, args, { name }) => {
@@ -71,8 +71,7 @@ const resolvers = {
           message: "Registration successful",
         };
       } catch (error) {
-        const errorMessage = "An authentication error occurred.";
-        throw new AuthenticationError(errorMessage);
+        throw new Error("This value already exists. Please provide a unique value.");
       }
     },
 

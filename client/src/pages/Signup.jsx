@@ -7,7 +7,6 @@ import { REGISTER_USER } from "../utils/mutations";
 
 export default function Signup() {
   const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
