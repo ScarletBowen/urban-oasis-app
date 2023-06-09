@@ -16,6 +16,7 @@ export default function Signup() {
 
   const [register, { loading, error }] = useMutation(REGISTER_USER, {
     onCompleted({ register }) {
+      console.log(register);
       if (register) {
         localStorage.setItem("token", register.token);
         localStorage.setItem("userId", register.user.user_id);
@@ -30,7 +31,7 @@ export default function Signup() {
     if (password !== repass) {
       alert("Wrong password not match!!!");
     }
-    register({ variables: { username, fullname, password } });
+    register({ variables: { username, fullname, email, password } });
     setUsername("");
     setFullname("");
     setEmail("");
