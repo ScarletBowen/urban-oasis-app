@@ -134,6 +134,11 @@ const typeDefs = gql`
   input OpeningHoursInput {
     open_now: Boolean!
   }
+  
+  type Query {
+    searchPlace(name: String!): [Place]
+  }
+  
 
   type Mutation {
     savePlace(input: PlaceInput!): User

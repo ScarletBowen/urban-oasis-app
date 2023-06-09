@@ -1,5 +1,7 @@
 const models = require("../models");
 var jwt = require("jsonwebtoken");
+const Place = require('../models/Place');
+
 const bcrypt = require("bcrypt");
 const { AuthenticationError, UserInputError, ApolloError } = require('apollo-server-express');
 const { GraphQLError } = require("graphql");
@@ -11,12 +13,34 @@ const resolvers = {
       try {
         if (!user) throw new AuthenticationError("You are not authenticated!");
         // TODO: update later
+        if (!user) throw new Error("You are not authenticated!");
         return await models.User.findAll({ username: "abc" });
       } catch (error) {
         throw new AuthenticationError("AUTHENTICATION_ERROR");
       }
     },
+    searchPlace: async (root, args, { name }) => {
+      try {
+        const places = await Place.find({ 
+          name: { $regex: new RegExp(name, "i") }
+        });
+        return places;
+      } catch (error) {
+        throw new AuthenticationError("AUTHENTICATION_ERROR");
+      }
+    },
+    searchPlace: async (root, args, { name }) => {
+      try {
+        const places = await Place.find({ 
+          name: { $regex: new RegExp(name, "i") }
+        });
+        return places;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
   },
+  
 
   Mutation: {
     register: async (root, { username, fullname, email, password }) => {
