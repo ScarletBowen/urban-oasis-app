@@ -15,8 +15,8 @@ import Nav from '../components/Nav';
 
 const MyProfile = () => {
     // get logged-in user data
-    // const { loading, data } = useQuery(GET_ME);
-    // const user = data?.currentUser || {};
+    const { loading, data } = useQuery(GET_ME);
+    const user = data?.currentUser || {};
 
     // if user is logged in, render MyProfileCard component
     return (

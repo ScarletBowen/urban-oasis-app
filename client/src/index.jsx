@@ -1,5 +1,10 @@
 import React from "react";
-import { RouterProvider } from "react-router-dom";
+import { 
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements
+} 
+from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import {
   ApolloClient,
@@ -8,7 +13,8 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import "./index.css";
-import App from "./App";
+import router from "./App";
+import Nav from "./components/Nav";
 
 
 const client = new ApolloClient({
@@ -16,6 +22,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// entry point for the app
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ApolloProvider client={client}>

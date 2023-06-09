@@ -11,7 +11,8 @@ export default function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [login, { loading, error }] = useMutation(LOGIN_USER, {
+  const [login, { loading, error }] = useMutation(LOGIN_USER, { 
+    variables: { username, password },
     onCompleted({ login }) {
       if (login) {
         localStorage.setItem("token", login.token);
@@ -28,7 +29,8 @@ export default function Signin() {
       alert("Please Enter All Fields");
       return;
     }
-    login({ variables: { username, password } });
+    console.log(username, password);
+    login();
     setUsername("");
     setPassword("");
   }
