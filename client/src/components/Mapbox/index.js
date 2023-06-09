@@ -1,5 +1,5 @@
-import "leaflet/dist/leaflet.css";
 import React from "react";
+import "leaflet/dist/leaflet.css";
 import "./index.css";
 import {
     MapContainer,
@@ -7,52 +7,41 @@ import {
     Marker,
     Popup,
 } from 'react-leaflet';
+import { Icon } from 'leaflet';
+import { useQuery } from '@apollo/client';
+import { FINDALLPARKS } from '../../utils/queries.js';
+import treeIconFile from './tree.png'; 
+
+// Define your custom icon
+const treeIcon = new Icon({
+  iconUrl: treeIconFile, //  tree icon file
+  iconSize: [25, 25], // size of the icon
+});
 
 export default function Mapbox() {
-    const position = [47.573457, -122.417387] // Adjusted to a valid lat/lng
-    const markers = [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-122.417387, 47.573457]
-            },
-            "properties": {
-                "name": "Charles Richey Sr Viewpoint"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-122.349245, 47.627746]
-            },
-            "properties": {
-                "name": "Ward Springs Park"
-            }
-        },
-    ]
+    const position = [33.685909, -117.824722] // lat/lng for Irvine, CA
+    const { loading, error, data } = useQuery(FINDALLPARKS);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
 
     return (
-        <div style={{height: '100vh'}}>
-            <MapContainer center={position} zoom={13}>
+        <div>
+            <MapContainer center={position} zoom={13} >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {markers.map((marker, index) => (
-                    <Marker key={index} position={marker.geometry.coordinates.reverse()}>
-                        <Popup>{marker.properties.name}</Popup>
-                    </Marker>
             
-                ))}
+                {data?.findAllParks.map((place, index) => (
+                    <Marker key={index} position={[place.geometry.location.lat, place.geometry.location.lng]} icon={treeIcon}>
+                        <Popup>{place.name}</Popup>
+                    </Marker>
+                ))} 
                 
             </MapContainer>
         </div>
     )
 }
-
-
-
 
 

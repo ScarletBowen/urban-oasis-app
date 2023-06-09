@@ -20,3 +20,17 @@ export const GET_USER = gql`
     }
 }
 `;
+
+export const FINDALLPARKS = gql`
+query FindAllParks {
+    findAllParks {
+      name
+      geometry {
+        location {
+          lat
+          lng
+        }
+      }
+    }
+  }
+`;
