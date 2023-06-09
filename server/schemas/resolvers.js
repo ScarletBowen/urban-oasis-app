@@ -16,7 +16,7 @@ const resolvers = {
   },
 
   Mutation: {
-    register: async (root, { username, fullname, password }) => {
+    register: async (root, { username, fullname, email, password }) => {
       try {
         const oldUser = await models.User.findOne({ username });
         if (oldUser) {
@@ -25,6 +25,7 @@ const resolvers = {
         const user = await models.User.create({
           username,
           fullname,
+          email,
           password: await bcrypt.hash(password, 10),
         });
         const token = jwt.sign(
@@ -77,28 +78,34 @@ const resolvers = {
       }
     },
 
-    savePlace: async (parent, { placeId }, context) => {
-        if (context.user) {
-            const updatedUser = await User.findOneAndUpdate(
-                { _id: context.user._id },
-                { $addToSet: { savedPlaces: input } },
-                { new: true, runValidators: true }
-            );
-            return updatedUser;
+    savePlace: async (parent, { input }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedPlaces: input } },
+          { new: true, runValidators: true }
+        );
+        if (!updatedUser) {
+          throw new UserInputError('Unable to update user');
         }
-        throw new AuthenticationError('You need to be logged in');
+        return updatedUser;
+      }
+      throw new AuthenticationError('You need to be logged in');
     },
     
     removePlace: async (parent, { placeId }, context) => {
-        if (context.user) {
-            const updatedUser = await User.findOneAndUpdate(
-                { _id: context.user._id },
-                { $pull: { savedPlaces: { placeId } } },
-                { new: true }
-            );
-            return updatedUser;
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedPlaces: { place_id: placeId } } },
+          { new: true }
+        );
+        if (!updatedUser) {
+          throw new UserInputError('Unable to update user');
         }
-        throw new AuthenticationError('You need to be logged in');
+        return updatedUser;
+      }
+      throw new AuthenticationError('You need to be logged in');
     }
   },
 };

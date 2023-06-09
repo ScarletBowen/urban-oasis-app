@@ -1,27 +1,71 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const placeSchema = new Schema(
     {
-        placeId: { 
+        business_status: {
+            type: String
+        },
+        formatted_address: {
+            type: String
+        },
+        geometry: {
+            location: {
+                lat: Number,
+                lng: Number
+            },
+            viewport: {
+                northeast: {
+                    lat: Number,
+                    lng: Number
+                },
+                southwest: {
+                    lat: Number,
+                    lng: Number
+                }
+            }
+        },
+        icon: {
+            type: String
+        },
+        icon_background_color: {
+            type: String
+        },
+        icon_mask_base_uri: {
+            type: String
+        },
+        name: {
+            type: String
+        },
+        opening_hours: {
+            open_now: Boolean
+        },
+        photos: [{
+            height: Number,
+            html_attributions: [String],
+            photo_reference: String,
+            width: Number
+        }],
+        place_id: { 
             type: String,
             required: true
         },
-        placeName: {
-            type: String
-        },
-        description: {
-            type: String
+        plus_code: {
+            compound_code: String,
+            global_code: String
         },
         rating: {
+            type: Number
+        },
+        reference: {
             type: String
         },
-        tags: {
-            type: String
-        },
-        thumbnail_url: {
-            type: String
+        types: [String],
+        user_ratings_total: {
+            type: Number
         }
     }
 );
 
-module.exports = placeSchema;
+const Place = model('Place', placeSchema);
+
+module.exports = Place;
