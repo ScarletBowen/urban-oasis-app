@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import Error from "./Error";
 import { REGISTER_USER } from "../utils/mutations";
 
@@ -17,8 +17,8 @@ export default function Signup() {
     onCompleted({ register }) {
       console.log(register);
       if (register) {
-        localStorage.setItem("token", register.token);
-        localStorage.setItem("userId", register.user.user_id);
+        localStorage.setItem("id_token", register.token);
+        localStorage.setItem("userId", register.user._id);
         // isLoggedInVar(true);
         navigate("/");
       }

@@ -8,36 +8,31 @@ import { GET_ME } from '../utils/queries';
 
 
 // import components
-import Nav from '../components/Nav';
 // import Footer from '../components/Footer'; 
 // import MyProfileCard from '../components/MyProfileCard';
 
 
-const MyProfile = () => {
-    // get logged-in user data
-    const { loading, data } = useQuery(GET_ME);
-    const user = data?.currentUser || {};
-
-    // if user is logged in, render MyProfileCard component
+const Profile = () => {
+    const { loading, error, data } = useQuery(GET_ME);
+  
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+  
+    if (error) {
+      return <p>Error: {error.message}</p>;
+    }
+  
+    const { username, fullname, email } = data.user;
+  
     return (
-        <div className="w-full p-3 flex flex-col items-center">
-            <h1>My Profile</h1>
-            
-            <img src="https://via.placeholder.com/150" alt="placeholder" />
-
-            <div>
-                <h3>Username: username</h3>
-                <h3>Full Name: fullname</h3>
-                <h3>Email: email</h3>
-
-                <h2>Bio</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
-            </div>
-        
-            <div>Friend List component</div>
-
-        </div>
+      <div>
+        <h2>Profile Page</h2>
+        <p>Username: {username}</p>
+        <p>Full Name: {fullname}</p>
+        <p>Email: {email}</p>
+      </div>
     );
-}
-
-export default MyProfile;
+  };
+  
+  export default Profile;

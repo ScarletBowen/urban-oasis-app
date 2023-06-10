@@ -15,10 +15,10 @@ export default function Signin() {
     variables: { username, password },
     onCompleted({ login }) {
       if (login) {
-        localStorage.setItem("token", login.token);
-        localStorage.setItem("userId", login.user.user_id);
+        localStorage.setItem("id_token", login.token);
+        localStorage.setItem("userId", login.user._id);
         // isLoggedInVar(true);
-        navigate("/");
+        navigate("/myprofile");
       }
     },
   });

@@ -1,5 +1,6 @@
 const models = require("../models");
 var jwt = require("jsonwebtoken");
+const { signToken } = require('../utils/auth');
 const Place = require('../models/Place');
 
 const bcrypt = require("bcrypt");
@@ -9,12 +10,35 @@ const { GraphQLError } = require("graphql");
 
 const resolvers = {
   Query: {
-    getUser: async (root, args, { user }) => {
+    getMe: async (parent, args, context) => {
+      if (context.user) {
+          const userData = await User.findOne({ _id: context.user._id })
+              .select('-__v -password')
+
+          return userData;
+      }
+      throw new AuthenticationError('Not logged in');
+  },
+    getUser: async (parent, args, { user }) => {
+      // try {
+      //   if (!user) throw new AuthenticationError("You are not authenticated!");
+      //   // TODO: update later
+      //   if (!user) throw new Error("You are not authenticated!");
+      //   return await models.User.findAll({ username: "abc" });
+      // } catch (error) {
+      //   throw new AuthenticationError(error.message);
+      // }
+      try {
+        if (user) throw new AuthenticationError("You are not authenticated!");
+        return await models.User.findOne({ username: args.username });
+      } catch (error) {
+        throw new ApolloError(error.message, "QUERY_ERROR");
+      }
+    },
+    getAllUsers: async (root, args, { user }) => {
       try {
         if (!user) throw new AuthenticationError("You are not authenticated!");
-        // TODO: update later
-        if (!user) throw new Error("You are not authenticated!");
-        return await models.User.findAll({ username: "abc" });
+        return await models.User.find({});
       } catch (error) {
         throw new AuthenticationError(error.message);
       }
@@ -47,31 +71,35 @@ const resolvers = {
   
 
   Mutation: {
-    register: async (root, { username, fullname, email, password }) => {
+    register: async (parent, { username, fullname, email, password }) => {
       try {
         const oldUser = await models.User.findOne({ username });
         if (oldUser) {
           throw new AuthenticationError("Username already exists");
         }
-        const user = await models.User.create({
-          username,
-          fullname,
-          email,
-          password: await bcrypt.hash(password, 10),
-        });
-        const token = jwt.sign(
-          { user_id: user._id, username: user.username },
-          process.env.JWT_SECRET || "mysecretsshhhhh",
-          { expiresIn: "1y" }
-        );
-        let createdUser = {
-          user_id: user._id,
-          username: user.username,
-        };
+        // const user = await models.User.create({
+        //   username,
+        //   fullname,
+        //   email,
+        //   password: await bcrypt.hash(password, 10),
+        // });
+        // const token = jwt.sign(
+        //   { _id: user._id, username: user.username },
+        //   process.env.JWT_SECRET || "mysecretsshhhhh",
+        //   { expiresIn: "1y" }
+        // );
+
+        const user = await models.User.create(args);
+        const token = signToken(user);
+
+        // let createdUser = {
+        //   _id: user._id,
+        //   username: user.username,
+        // };
 
         return {
           token,
-          user: createdUser,
+          user,
           message: "Registration successful",
         };
       } catch (error) {
@@ -83,7 +111,7 @@ const resolvers = {
       try {
         const user = await models.User.findOne({ username });
         if (!user) {
-          throw new UserInputError("No user with that username");
+          throw new AuthenticationError("Incorrect Credentials");
         }
         const isValid = await bcrypt.compare(password, user.password);
         if (!isValid) {
@@ -91,21 +119,26 @@ const resolvers = {
         }
 
         // return jwt
-        const token = jwt.sign(
-          { user_id: user._id, username: user.username },
-          process.env.JWT_SECRET || "mysecretsshhhhh",
-          { expiresIn: "1d" }
-        );
+        // const token = jwt.sign(
+        //   { _id: user._id, username: user.username },
+        //   process.env.JWT_SECRET || "mysecretsshhhhh",
+        //   { expiresIn: "1d" }
+        // );
 
-        return {
-          token,
-          user: {
-            user_id: user._id,
-            username: user.username,
-          },
-        };
+
+        // return {
+        //   token,
+        //   user: {
+        //     _id: user._id,
+        //     username: user.username,
+        //   },
+        // };
+
+      const token = signToken(user);
+
+      return { token, user }
       } catch (error) {
-        throw new AuthenticationError("LOGIN_ERROR");
+        throw new AuthenticationError(error.message);
       }
     },
 
