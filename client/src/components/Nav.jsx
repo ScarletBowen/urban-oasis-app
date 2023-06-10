@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import useToken from "../hooks/useToken";
+import Auth from "../utils/auth";
+
 export default function Nav() {
+  const [showMenu, setShowMenu] = useState(false);
+  const [token, setToken] = useToken();
+
   return (
     <div className="fixed top-0 w-full" style={{ zIndex: 2000 }}>
       <header className="bg-white shadow-sm">
@@ -23,6 +29,7 @@ export default function Nav() {
                   type="button"
                   className="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600"
                   aria-label="toggle menu"
+                  onClick={() => setShowMenu(!showMenu)}
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
                     <path
@@ -43,24 +50,42 @@ export default function Nav() {
               >
                 About us
               </Link>
-              <Link
-                to="/myprofile"
-                className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
-              >
-                My Profile
-              </Link>
-              <Link
-                to="/favoriteplaces"
-                className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
-              >
-                My Favorite Places
-              </Link>
-              <Link
-                to="/signin"
-                className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
-              >
-                Sign In
-              </Link>
+
+              {!!token ? (
+                <>
+                  <Link
+                    to="/myprofile"
+                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
+                  >
+                    My Profile
+                  </Link>
+                  <Link
+                    to="/favoriteplaces"
+                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
+                  >
+                    My Favorite Places
+                  </Link>
+                </>
+              ) : null}
+
+              {!!!token ? (
+                <Link
+                  to="/signin"
+                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+                >
+                  Sign In
+                </Link>
+              ) : (
+                <button
+                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    Auth.logout();
+                  }}
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         </nav>
@@ -68,30 +93,39 @@ export default function Nav() {
 
       {/* Mobile Menu */}
       <div className="md:hidden bg-white">
-        <Link
-          to="/signin"
-          className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
-        >
-          Sign In
-        </Link>
-        <Link
-          to="/aboutus"
-          className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
-        >
-          About us
-        </Link>
-        <Link
-          to="/myprofile"
-          className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
-        >
-          My Profile
-        </Link>
-        <Link
-          to="/favoriteplaces"
-          className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
-        >
-          My Favorite Places
-        </Link>
+        {showMenu ? (
+          <>
+            <Link
+              to="/signin"
+              className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/aboutus"
+              className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+            >
+              About us
+            </Link>
+
+            {!!token ? (
+              <>
+                <Link
+                  to="/myprofile"
+                  className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+                >
+                  My Profile
+                </Link>
+                <Link
+                  to="/favoriteplaces"
+                  className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+                >
+                  My Favorite Places
+                </Link>
+              </>
+            ) : null}
+          </>
+        ) : null}
       </div>
     </div>
   );

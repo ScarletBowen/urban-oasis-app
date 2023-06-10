@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
-import Error from "./Error";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+
+import ErrorPage from "./Error";
 import { REGISTER_USER } from "../graphql/mutations";
+import useToken from "../hooks/useToken";
 
 export default function Signup() {
-  const navigate = useNavigate();
+  const [token, setToken] = useToken();
+
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -16,10 +19,8 @@ export default function Signup() {
     onCompleted({ register }) {
       console.log(register);
       if (register) {
-        localStorage.setItem("token", register.token);
-        localStorage.setItem("userId", register.user.user_id);
-        // isLoggedInVar(true);
-        navigate("/");
+        setToken(register.token);
+        window.location.assign("/");
       }
     },
   });
@@ -38,7 +39,7 @@ export default function Signup() {
   }
 
   if (loading) return <p>Loading</p>;
-  if (error) return <Error />;
+  if (error) return <ErrorPage />;
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
