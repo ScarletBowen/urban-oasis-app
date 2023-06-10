@@ -12,8 +12,6 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "concurrently": "^5.1.0",
-        "react-stripe-js": "^1.1.5",
-        "stripe": "^12.8.0"
+        "concurrently": "^8.1.0"
     }
 }

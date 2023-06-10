@@ -6,7 +6,7 @@ import Mapbox from "../components/Mapbox";
 const Home = () => {
   return (
     <div>
-      <h1>Urban Oasis</h1>
+      <h1>Irvine, California</h1>
       <Mapbox />
     </div>
   );

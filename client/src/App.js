@@ -1,12 +1,11 @@
 
 import React from "react";
-import { RouterProvider } from "react-router-dom";
 import { setContext } from "@apollo/client/link/context";
 import {
   BrowserRouter as Router,
-  Routes,
   Route,
-  Navigate,
+  Routes,
+  createBrowserRouter,
 } from "react-router-dom";
 import {
   ApolloClient,
@@ -46,32 +45,83 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
 
-function App() {
-  return (
-    <ApolloProvider client={client}>
-      <Router>
-        <div>
+// Routes
+const router =  createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <>
           <Nav />
-          <Routes>
-            <Route path="/" element={<Home />} errorElement={<Error />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/myprofile" element={<MyProfile />} />
-            <Route path="/userprofile" element={<UserProfile />} />
-            <Route path="/placedetails" element={<PlaceDetails />} />
-            <Route path="/favoriteplaces" element={<FavoritePlaces />} />
-          </Routes>
-          <Elements stripe={StripeProvider}></Elements>
-        </div>
-      </Router>
-    </ApolloProvider>
-  );
-}
+          <Home />
+        </>
+      ),
+      errorElement: <Error />
+    },
+    {
+      path: "signin",
+      element: (
+        <>
+          <Nav />
+          <Signin />
+        </>
+      ),
+    },
+    {
+      path: "signup",
+      element: (
+        <>
+          <Nav />
+          <Signup />
+        </>
+      ),
+    },
+    {
+      path: "aboutus",
+      element: (
+        <>
+          <Nav />
+          <AboutUs />
+        </>
+      ),
+    },
+    {
+      path: "myprofile",
+      element: (
+        <>
+          <Nav />
+          <MyProfile />
+        </>
+      ),
+    },
+    {
+      path: "userprofile",
+      element: (
+        <>
+          <Nav />
+          <UserProfile />
+        </>
+      ),
+    },
+    {
+      path: "placedetails",
+      element: (
+        <>
+          <Nav />
+          <PlaceDetails />
+        </>
+      ),
+    },
+    {
+      path: "favoriteplaces",
+      element: (
+        <>
+          <Nav />
+          <FavoritePlaces />
+        </>
+      ),
+    },
+  ]);
+ 
 
-export default App;
+export default router;

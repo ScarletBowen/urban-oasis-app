@@ -82,7 +82,10 @@ function useGeolocation(options = {}) {
   return state;
 }
 
-const Nav = () => {
+function Nav() {
+  
+  
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const locationState = useGeolocation();
@@ -114,138 +117,64 @@ const Nav = () => {
   }
 
   return (
-    <div>
-      <header>
-        <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
-          <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <Link to={"/"} className="flex items-center lg:order-2">
-              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                Urban Oasis Locator
-              </span>
-            </Link>
-            <div className="flex items-center lg:order-3">
-              <Link
-                to={"/aboutus"}
-                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
-                aria-current="page"
-              >
-                About us
-              </Link>
-              <Link
-                to={"/myprofile"}
-                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
-                aria-current="page"
-              >
-                My Profile
-              </Link>
-              <Link
-                to={"/favoriteplaces"}
-                className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
-                aria-current="page"
-              >
-                My Favorite Places
-              </Link>
-              <Link
-                to={"/signin"}
-                className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-              >
-                Sign In
-              </Link>
-              <button
-                data-collapse-toggle="mobile-menu-2"
-                type="button"
-                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                aria-controls="mobile-menu-2"
-                aria-expanded="false"
-              >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                <svg
-                  className="hidden w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-            <div
-              className="hidden justify-between items-center w-full lg:flex lg:w-80 lg:order-1"
-              id="mobile-menu-2"
-            >
-              <form
-                className="flex items-center relative w-full"
-                onSubmit={handleSearchQuery}
-              >
-                <label htmlFor="simple-search" className="sr-only">
-                  Search
-                </label>
-                <div className="relative w-full">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg
-                      aria-hidden="true"
-                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
-                  <input
-                    type="text"
-                    id="simple-search"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
 
-                  {!!searchResults ? (
-                    <div className="absolute z-10 w-full border divide-y shadow max-h-72 overflow-y-auto bg-white">
-                      {searchResults.map((result) => (
-                        <a
-                          className="block p-2 hover:bg-indigo-50 flex justify-between"
-                          href="#"
-                        >
-                          <div>{result.properties}</div>
-                          <div>
-                            <span class="inline-block whitespace-nowrap rounded-[0.27rem] bg-lime-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-lime-700">
-                              {result.distance.toFixed(2)}km
-                            </span>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  ) : null}
+      <div className="min-h-screen bg-gray-100 text-gray-900">
+        <header className="bg-white shadow-sm">
+          <nav className="container mx-auto px-6 py-3">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+              <div className="flex justify-between items-center">
+                <div>
+                  <Link to="/" className="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
+                    Urban Oasis Locator
+                  </Link>
                 </div>
-              </form>
+    
+                {/* Mobile Menu Button */}
+                <div className="flex md:hidden">
+                  <button type="button" className="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="toggle menu">
+                    <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
+                      <path fillRule="evenodd" d="M4 5a1 1 0 011-1h14a1 1 0 110 2H5a1 1 0 01-1-1zm0 6a1 1 0 011-1h14a1 1 0 110 2H5a1 1 0 01-1-1zm1 6a1 1 0 100 2h14a1 1 0 100-2H5z" clipRule="evenodd"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+    
+              {/* Desktop Menu */}
+              <div className="md:flex hidden">
+                <Link to="/aboutus" className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500">
+                  About us
+                </Link>
+                <Link to="/myprofile" className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500">
+                  My Profile
+                </Link>
+                <Link to="/favoriteplaces" className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500">
+                  My Favorite Places
+                </Link>
+                <Link to="/signin" className="px-6 py-3 text-sm font-medium text-white bg-indigo-500 rounded-full hover:bg-indigo-400">
+                  Sign In
+                </Link>
+              </div>
             </div>
-          </div>
-        </nav>
-      </header>
+          </nav>
+        </header>
+    
+        {/* Mobile Menu */}
+        <div className="md:hidden">
+          <Link to="/aboutus" className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">
+            About us
+          </Link>
+          <Link to="/myprofile" className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">
+            My Profile
+          </Link>
+          <Link to="/favoriteplaces" className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">
+            My Favorite Places
+          </Link>       
+       <Link to="/signin" className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">
+        Sign In
+      </Link>
     </div>
-  );
-};
+  </div>
+); 
+}
 
 export default Nav;

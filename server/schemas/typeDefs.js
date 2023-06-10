@@ -1,8 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-
-type User {
+  type User {
     user_id: String!
     username: String!
     fullname: String!
@@ -15,6 +14,55 @@ type User {
     user: User!
   }
   
+  type Location {
+    lat: Float!
+    lng: Float!
+  }
+
+  type Viewport {
+    northeast: Location!
+    southwest: Location!
+  }
+
+  type Geometry {
+    location: Location!
+    viewport: Viewport!
+  }
+
+  type Photo {
+    height: Int!
+    html_attributions: [String]!
+    photo_reference: String!
+    width: Int!
+  }
+
+  type PlusCode {
+    compound_code: String!
+    global_code: String!
+  }
+
+  type Place {
+    business_status: String!
+    formatted_address: String!
+    geometry: Geometry!
+    icon: String!
+    icon_background_color: String!
+    icon_mask_base_uri: String!
+    name: String!
+    opening_hours: OpeningHours!
+    photos: [Photo]!
+    place_id: String!
+    plus_code: PlusCode!
+    rating: Float!
+    reference: String!
+    types: [String]!
+    user_ratings_total: Int!
+  }
+
+  type OpeningHours {
+    open_now: Boolean!
+  }
+
   type Query {
     getUser: [User]
   }
@@ -36,31 +84,75 @@ type User {
     createdAt: String
     place_id: String
     author: [User]!
-    }
+  }
 
-    type Place {
-        placeId: String
-        placeName: String
-        description: String
-        rating: String
-        tags: String
-        thumbnail_url: String
-    }
+  input PlaceInput {
+    business_status: String!
+    formatted_address: String!
+    geometry: GeometryInput!
+    icon: String!
+    icon_background_color: String!
+    icon_mask_base_uri: String!
+    name: String!
+    opening_hours: OpeningHoursInput!
+    photos: [PhotoInput]!
+    place_id: String!
+    plus_code: PlusCodeInput!
+    rating: Float!
+    reference: String!
+    types: [String]!
+    user_ratings_total: Int!
+  }
 
-    input PlaceInput {
-        placeId: String
-        placeName: String
-        description: String
-        rating: String
-        tags: String
-        thumbnail_url: String
-    }
+  input LocationInput {
+    lat: Float!
+    lng: Float!
+  }
 
-    type Mutation {
-        savePlace(input: PlaceInput!): User
-        removePlace(placeId: String!): User
-        addComment(commentBody: String!, place_id: String!): User
-        removeComment(commentId: ID!): User
-    }
+  input ViewportInput {
+    northeast: LocationInput!
+    southwest: LocationInput!
+  }
+
+  input GeometryInput {
+    location: LocationInput!
+    viewport: ViewportInput!
+  }
+
+  input PhotoInput {
+    height: Int!
+    html_attributions: [String]!
+    photo_reference: String!
+    width: Int!
+  }
+
+  input PlusCodeInput {
+    compound_code: String!
+    global_code: String!
+  }
+
+  input OpeningHoursInput {
+    open_now: Boolean!
+  }
+  
+  type Query {
+    searchPlace(name: String!): [Place]
+    findAllParks: [Place]
+  }
+
+  type Query {
+    getUser: User
+    searchPlace(name: String!): [Place]
+    findAllParks: [Place]
+    getPlaceDetails(place_id: ID!): [Place]
+  }
+  
+
+  type Mutation {
+    savePlace(input: PlaceInput!): User
+    removePlace(placeId: String!): User
+    addComment(commentBody: String!, place_id: String!): User
+    removeComment(commentId: ID!): User
+  }
 `;
 module.exports = typeDefs;
