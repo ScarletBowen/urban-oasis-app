@@ -39,6 +39,10 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
+    findAllParks: async (root, args) => {
+      const allParks = await Place.find();
+      return allParks;
+    }
   },
   
 
