@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import ErrorPage from "./Error";
-import { LOGIN_USER } from "../utils/mutations";
-
+import { LOGIN_USER } from "../graphql/mutations";
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -11,7 +10,7 @@ export default function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [login, { loading, error }] = useMutation(LOGIN_USER, { 
+  const [login, { loading, error }] = useMutation(LOGIN_USER, {
     variables: { username, password },
     onCompleted({ login }) {
       if (login) {

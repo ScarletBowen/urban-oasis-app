@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 import Error from "./Error";
-import { REGISTER_USER } from "../utils/mutations";
-
+import { REGISTER_USER } from "../graphql/mutations";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -62,7 +61,7 @@ export default function Signup() {
                   name="username"
                   id="username"
                   className="bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                placeholder="JohnDoe123"
+                  placeholder="JohnDoe123"
                   required=""
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
