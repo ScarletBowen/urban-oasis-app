@@ -30,6 +30,7 @@ const DonationForm = () => {
       }
     };
 
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -42,6 +43,6 @@ const DonationForm = () => {
       <button type="submit">Donate</button>
     </form>
   );
-};
+  };
 
 export default DonationForm;

@@ -26,8 +26,10 @@ import PlaceDetails from "./pages/PlaceDetails";
 import FavoritePlaces from "./pages/FavoritePlaces";
 import Error from "./pages/Error";
 import Nav from "./components/Nav";
-import { StripeProvider } from "./utils/StripeProvider";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import DonationForm from "./components/donationForm";
+import { StripeProvider } from "./utils/StripeProvider";
 
 
 const httpLink = createHttpLink({
@@ -65,12 +67,7 @@ function App() {
             <Route path="/placedetails" element={<PlaceDetails />} />
             <Route path="/favoriteplaces" element={<FavoritePlaces />} />
           </Routes>
-          <StripeProvider>
-          <div className="App">
-            <h1>Donation</h1>
-            <DonationForm />
-          </div>
-        </StripeProvider>
+          <Elements stripe={StripeProvider}></Elements>
         </div>
       </Router>
     </ApolloProvider>
