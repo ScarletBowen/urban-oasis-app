@@ -140,7 +140,12 @@ const typeDefs = gql`
     findAllParks: [Place]
   }
 
- 
+  type Query {
+    getUser: User
+    searchPlace(name: String!): [Place]
+    findAllParks: [Place]
+    getPlaceDetails(place_id: ID!): [Place]
+  }
   
 
   type Mutation {

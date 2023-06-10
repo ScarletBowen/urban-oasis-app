@@ -19,7 +19,7 @@ const treeIcon = new Icon({
 });
 
 export default function Mapbox() {
-    const position = [33.6814301, -117.8302338] // lat/lng for Irvine, CA
+    const position = [33.6725744, -117.7432627] // lat/lng for Irvine, CA
     const { loading, error, data } = useQuery(FINDALLPARKS);
 
     if (loading) return <p>Loading...</p>;

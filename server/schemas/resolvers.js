@@ -26,23 +26,25 @@ const resolvers = {
         });
         return places;
       } catch (error) {
-        throw new AuthenticationError(error.message);
-      }
-    },
-    searchPlace: async (root, args, { name }) => {
-      try {
-        const places = await Place.find({ 
-          name: { $regex: new RegExp(name, "i") }
-        });
-        return places;
-      } catch (error) {
         throw new Error(error.message);
       }
     },
     findAllParks: async (root, args) => {
       const allParks = await Place.find();
       return allParks;
-    }
+    },
+
+    getPlaceDetails: async (root, args) => {
+      try {
+        const place = await Place.findOne({ place_id: args.place_id });
+        if (!place) {
+          throw new Error("Place not found");
+        }
+        return place;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
   },
   
 
@@ -109,24 +111,6 @@ const resolvers = {
       }
     },
 
-    // savePlace: async (parent, { input }, context) => {
-    //   if (context.user) {
-    //     const updatedUser = await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $addToSet: { savedPlaces: input } },
-    //       { new: true, runValidators: true }
-    //     );
-    //     if (!updatedUser) {
-    //       throw new GraphQLError(error.message, {
-    //         extensions: {
-    //           code: error.code,
-    //         },
-    //       });
-    //     }
-    //     return updatedUser;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in');
-    // },
     savePlace: async (parent, { input }, context) => {
       try {
         if (!context.user) {
@@ -148,26 +132,6 @@ const resolvers = {
         throw new AuthenticationError("SAVE_PLACE_ERROR");
       }
     },
-
-  //   removePlace: async (parent, { placeId }, context) => {
-  //     if (context.user) {
-  //       const updatedUser = await User.findOneAndUpdate(
-  //         { _id: context.user._id },
-  //         { $pull: { savedPlaces: { place_id: placeId } } },
-  //         { new: true }
-  //       );
-  //       if (!updatedUser) {
-  //         throw new GraphQLError(error.message, {
-  //           extensions: {
-  //             code: error.code,
-  //           },
-  //         });
-  //       }
-  //       return updatedUser;
-  //     }
-  //     throw new AuthenticationError('You need to be logged in');
-  //   }
-  // },
 
   removePlace: async (parent, { placeId }, context) => {
     try {
