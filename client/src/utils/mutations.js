@@ -43,3 +43,31 @@ export const ADD_FRIEND = gql`
         }
     }
 `;
+
+export const SAVE_PLACE_MUTATION = gql`
+  mutation SavePlace($input: PlaceInput!) {
+    savePlace(input: $input) {
+      _id
+      username
+      savedPlaces {
+        place_id
+        name
+        // Add all necessary fields here
+      }
+    }
+  }
+`;
+
+export const REMOVE_PLACE_MUTATION = gql`
+  mutation RemovePlace($placeId: ID!) {
+    removePlace(placeId: $placeId) {
+      _id
+      username
+      savedPlaces {
+        place_id
+        name
+        // Add all necessary fields here
+      }
+    }
+  }
+`;
