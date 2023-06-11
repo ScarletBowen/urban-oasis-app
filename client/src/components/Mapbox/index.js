@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  ZoomControl,
+  Marker,
+  Polyline,
+} from "react-leaflet";
 import { useQuery } from "@apollo/client";
-import './index.css';
+import "./index.css";
+import { useGeolocation } from "@uidotdev/usehooks";
 
 import SearchBox from "../SearchBox.jsx";
 import ParkMarker from "./ParkMarker.jsx";
@@ -9,18 +16,24 @@ import ParkMarker from "./ParkMarker.jsx";
 import { FINDALLPARKS } from "../../graphql/queries.js";
 
 export default function Mapbox() {
+  const userLocation = useGeolocation();
   // lat/lng for Irvine, CA
-  const [position, setPosition] = useState([33.6725744, -117.7432627]);
+  const [centerPosition, setCenterPosition] = useState([
+    33.6725744, -117.7432627,
+  ]);
+  const [selectedPosition, setSelectedPosition] = useState(null);
   const { loading, error, data } = useQuery(FINDALLPARKS);
   var refsPopup = {};
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || userLocation.loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
+  const userPosition = [userLocation.latitude, userLocation.longitude];
 
   return (
     <div>
       <MapContainer
-        center={position}
+        center={centerPosition}
         zoom={12}
         className="h-screen"
         zoomControl={false}
@@ -30,6 +43,15 @@ export default function Mapbox() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <ZoomControl position="bottomright" />
+
+        <Marker position={userPosition}></Marker>
+
+        {selectedPosition ? (
+          <Polyline
+            pathOptions={{ color: "blue" }}
+            positions={[userPosition, selectedPosition]}
+          />
+        ) : null}
 
         {data?.findAllParks.map((place) => (
           <ParkMarker
@@ -41,7 +63,12 @@ export default function Mapbox() {
           />
         ))}
 
-        <SearchBox setPosition={setPosition} refsPopup={refsPopup} />
+        <SearchBox
+          setPosition={setCenterPosition}
+          userLocation={userLocation}
+          refsPopup={refsPopup}
+          setSelectedPosition={setSelectedPosition}
+        />
       </MapContainer>
     </div>
   );

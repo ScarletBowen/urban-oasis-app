@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useMap } from "react-leaflet";
-import { useGeolocation } from "@uidotdev/usehooks";
 import { useMutation } from "@apollo/client";
 
 import { getDistanceInKm } from "../utils/distance";
 import { SEARCH_PLACE } from "../graphql/mutations";
 
-export default function SearchBox({ setPosition, refsPopup }) {
+export default function SearchBox({
+  setPosition,
+  refsPopup,
+  userLocation,
+  setSelectedPosition,
+}) {
   const parentMap = useMap();
-  const { latitude, longitude } = useGeolocation();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -20,8 +23,8 @@ export default function SearchBox({ setPosition, refsPopup }) {
           return {
             ...place,
             distance: getDistanceInKm(
-              latitude,
-              longitude,
+              userLocation.latitude,
+              userLocation.longitude,
               place.geometry.location.lat,
               place.geometry.location.lng
             ),
@@ -36,6 +39,23 @@ export default function SearchBox({ setPosition, refsPopup }) {
   function handleSubmit(e) {
     e.preventDefault();
     callSearch();
+  }
+
+  function handleSelectPlace(place) {
+    const location = [
+      place.geometry.location.lat + 0.01,
+      place.geometry.location.lng,
+    ];
+    setPosition(location);
+    parentMap.flyTo(location, 14);
+    setSelectedPosition([
+      place.geometry.location.lat,
+      place.geometry.location.lng,
+    ]);
+    const marker = refsPopup[place._id];
+    if (marker) {
+      marker.openPopup();
+    }
   }
 
   if (loading) return "Loading...";
@@ -84,18 +104,7 @@ export default function SearchBox({ setPosition, refsPopup }) {
                 <div
                   className="flex flex-row hover:bg-indigo-50 justify-between text-base p-2 w-full"
                   key={place._id}
-                  onClick={() => {
-                    const location = [
-                      place.geometry.location.lat + 0.01,
-                      place.geometry.location.lng,
-                    ];
-                    setPosition(location);
-                    parentMap.flyTo(location, 14);
-                    const marker = refsPopup[place._id];
-                    if (marker) {
-                      marker.openPopup();
-                    }
-                  }}
+                  onClick={() => handleSelectPlace(place)}
                 >
                   <div className="grow inline">{place.name}</div>
                   <div className="inline">
