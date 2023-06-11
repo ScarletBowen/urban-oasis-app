@@ -1,13 +1,38 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import DonationForm from '../components/DonationForm';
 
-const stripePromise = loadStripe('pk_test_51Mu74GDhddzOfBnOj6t7ugiiQic08NOE8hPCqa4EXD8LNa9y8ORy5sUJJ2joehVxofZjdisgb5q0rrnKTAPA43pG00QYknLHvf');
+function Payment(props) {
+  const [stripePromise, setStripePromise] = useState(null);
+  const [clientSecret, setClientSecret] = useState('');
 
-export const StripeProvider = ({ children }) => {
+  useEffect(() => {
+    fetch('./config').then(async (r) => {
+      const { publishableKey } = await r.json();
+      setStripePromise(loadStripe(publishableKey));
+    });
+}, []);
+  useEffect(() => {
+    fetch('./create-payment-intent', {
+      method: 'POST',
+      body: JSON.stringify({}),
+    }).then(async (r) => {
+      const { clientSecret } = await r.json();
+      clientSecret(clientSecret);
+    });
+  }, []);
+
   return (
-    <Elements stripe={stripePromise}>
-      {children}
+    <>
+    <h1>Payment</h1>
+    {stripePromise && clientSecret && (
+    <Elements stripe={stripePromise} options={{ clientSecret }}>
+      <DonationForm />
     </Elements>
+    )}
+ </>
   );
 };
+
+export default Payment;   
