@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
-import Error from "./Error";
-import { REGISTER_USER } from "../utils/mutations";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 
+import ErrorPage from "./Error";
+import { REGISTER_USER } from "../graphql/mutations";
+import useToken from "../hooks/useToken";
 
 export default function Signup() {
-  const navigate = useNavigate();
+  const [token, setToken] = useToken();
+
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -17,10 +19,8 @@ export default function Signup() {
     onCompleted({ register }) {
       console.log(register);
       if (register) {
-        localStorage.setItem("token", register.token);
-        localStorage.setItem("userId", register.user.user_id);
-        // isLoggedInVar(true);
-        navigate("/");
+        setToken(register.token);
+        window.location.assign("/");
       }
     },
   });
@@ -39,7 +39,7 @@ export default function Signup() {
   }
 
   if (loading) return <p>Loading</p>;
-  if (error) return <Error />;
+  if (error) return <ErrorPage />;
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -62,7 +62,7 @@ export default function Signup() {
                   name="username"
                   id="username"
                   className="bg-gray-50 border border-green-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                placeholder="JohnDoe123"
+                  placeholder="JohnDoe123"
                   required=""
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}

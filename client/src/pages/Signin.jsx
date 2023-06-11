@@ -1,24 +1,23 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
-import ErrorPage from "./Error";
-import { LOGIN_USER } from "../utils/mutations";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 
+import ErrorPage from "./Error";
+import { LOGIN_USER } from "../graphql/mutations";
+import useToken from "../hooks/useToken";
 
 export default function Signin() {
-  const navigate = useNavigate();
+  const [token, setToken] = useToken();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [login, { loading, error }] = useMutation(LOGIN_USER, { 
+  const [login, { loading, error }] = useMutation(LOGIN_USER, {
     variables: { username, password },
     onCompleted({ login }) {
       if (login) {
-        localStorage.setItem("token", login.token);
-        localStorage.setItem("userId", login.user.user_id);
-        // isLoggedInVar(true);
-        navigate("/");
+        setToken(login.token);
+        window.location.assign("/");
       }
     },
   });

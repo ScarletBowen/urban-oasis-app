@@ -1,16 +1,12 @@
 import React from "react";
+import { useState } from "react";
+import Nav from "../components/Nav";
 import Mapbox from "../components/Mapbox";
-import BackgroundImage from "../assets/greenbg.jpg";
 
 const Home = () => {
   return (
-    <div style={{
-      backgroundImage: `url(${BackgroundImage})`,
-      backgroundPosition: 'center', 
-      backgroundSize: 'cover', 
-      backgroundRepeat: 'no-repeat'
-    }}>
-      <h1 className="text-4xl font-bold text-center text-white m-5">Irvine, California</h1>
+    <div>
+      <h1>Irvine, California</h1>
       <Mapbox />
     </div>
   );
