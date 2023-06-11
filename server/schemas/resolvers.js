@@ -20,12 +20,15 @@ const resolvers = {
     },
     getOtherUser: async (parent, { username }) => {
       return User.findOne({ username })
-          .select('-__v -password')
-          .populate('friends')
-          .populate('posts')
+        .select("-__v -password")
+        .populate("friends")
+        .populate("posts");
     },
-    searchPlace: async (root, args, { name }) => {
+    searchPlace: async (root, { name }, context) => {
       try {
+        if (name === "") {
+          return [];
+        }
         const places = await Place.find({
           name: { $regex: new RegExp(name, "i") },
         });

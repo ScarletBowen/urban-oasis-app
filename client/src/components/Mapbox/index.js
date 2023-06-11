@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import { useQuery } from "@apollo/client";
 import './index.css';
@@ -9,8 +9,10 @@ import ParkMarker from "./ParkMarker.jsx";
 import { FINDALLPARKS } from "../../graphql/queries.js";
 
 export default function Mapbox() {
-  const position = [33.6725744, -117.7432627]; // lat/lng for Irvine, CA
+  // lat/lng for Irvine, CA
+  const [position, setPosition] = useState([33.6725744, -117.7432627]);
   const { loading, error, data } = useQuery(FINDALLPARKS);
+  var refsPopup = {};
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -29,11 +31,17 @@ export default function Mapbox() {
         />
         <ZoomControl position="bottomright" />
 
-        <SearchBox />
-
-        {data?.findAllParks.map((place, index) => (
-          <ParkMarker key={index} place={place} />
+        {data?.findAllParks.map((place) => (
+          <ParkMarker
+            key={"ParkMarker" + place._id}
+            place={place}
+            applyRef={(ref) => {
+              refsPopup[place._id] = ref;
+            }}
+          />
         ))}
+
+        <SearchBox setPosition={setPosition} refsPopup={refsPopup} />
       </MapContainer>
     </div>
   );

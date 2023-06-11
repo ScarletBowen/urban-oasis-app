@@ -23,22 +23,22 @@ export const GET_ME = gql`
 `;
 
 export const GET_OTHER_USER = gql`
-    query getOtherUser($username: String!) {
-        user(username: $username) {
-            _id
-            username
-            bio
-            avatar
-            friendCount
-            friends {
-                _id
-                username
-                location
-                description
-                avatar
-            }
-        }
+  query getOtherUser($username: String!) {
+    user(username: $username) {
+      _id
+      username
+      bio
+      avatar
+      friendCount
+      friends {
+        _id
+        username
+        location
+        description
+        avatar
+      }
     }
+  }
 `;
 
 export const FINDALLPARKS = gql`
@@ -91,6 +91,29 @@ export const GET_FAVORITE_PLACES = gql`
       user_ratings_total
       business_status
       types
+    }
+  }
+`;
+
+export const SEARCH_PLACE = gql`
+  query SearchPlace($name: String!) {
+    searchPlace(name: $name) {
+      _id
+      name
+      geometry {
+        location {
+          lat
+          lng
+        }
+      }
+      business_status
+      formatted_address
+      rating
+      types
+      photos {
+        photo_reference
+      }
+      user_ratings_total
     }
   }
 `;
