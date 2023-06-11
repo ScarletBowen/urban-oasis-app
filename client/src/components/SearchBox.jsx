@@ -43,7 +43,7 @@ export default function SearchBox({
 
   function handleSelectPlace(place) {
     const location = [
-      place.geometry.location.lat + 0.01,
+      place.geometry.location.lat + 0.015,
       place.geometry.location.lng,
     ];
     setPosition(location);
@@ -65,7 +65,7 @@ export default function SearchBox({
   }
 
   return (
-    <div className="leaflet-top leaflet-left mt-16">
+    <div className="leaflet-top leaflet-left">
       <form
         className="flex items-center relative w-full leaflet-control leaflet-bar"
         onSubmit={handleSubmit}

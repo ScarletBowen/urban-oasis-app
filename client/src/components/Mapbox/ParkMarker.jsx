@@ -22,7 +22,7 @@ export default function ParkMarker({ place, applyRef }) {
       ref={applyRef}
     >
       <Popup>
-        <div className="max-w-sm rounded overflow-hidden">
+        <div className="max-w-sm rounded overflow-y-auto">
           <img
             className="w-full"
             src="https://goparkplay.com/wp-content/uploads/2021/05/batch_IMG_6959-800x600.jpg"
