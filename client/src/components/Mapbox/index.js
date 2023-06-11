@@ -1,6 +1,7 @@
 import React from "react";
 import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import { useQuery } from "@apollo/client";
+import './index.css';
 
 import SearchBox from "../SearchBox.jsx";
 import ParkMarker from "./ParkMarker.jsx";
