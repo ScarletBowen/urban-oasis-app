@@ -141,9 +141,6 @@ function Nav() {
     
               {/* Desktop Menu */}
               <div className="md:flex hidden">
-                <Link to="/aboutus" className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500">
-                  About us
-                </Link>
                 <Link to="/myprofile" className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500">
                   My Profile
                 </Link>
@@ -160,9 +157,6 @@ function Nav() {
     
         {/* Mobile Menu */}
         <div className="md:hidden">
-          <Link to="/aboutus" className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">
-            About us
-          </Link>
           <Link to="/myprofile" className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">
             My Profile
           </Link>

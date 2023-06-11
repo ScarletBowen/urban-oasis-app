@@ -18,7 +18,7 @@ export const GET_USER = gql`
             username
             email
     }
-}
+  }
 `;
 
 export const FINDALLPARKS = gql`

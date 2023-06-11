@@ -52,7 +52,7 @@ export const SAVE_PLACE_MUTATION = gql`
       savedPlaces {
         place_id
         name
-        // Add all necessary fields here
+        
       }
     }
   }
@@ -66,7 +66,7 @@ export const REMOVE_PLACE_MUTATION = gql`
       savedPlaces {
         place_id
         name
-        // Add all necessary fields here
+        
       }
     }
   }
