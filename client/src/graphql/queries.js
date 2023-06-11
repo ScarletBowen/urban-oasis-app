@@ -94,26 +94,3 @@ export const GET_FAVORITE_PLACES = gql`
     }
   }
 `;
-
-export const SEARCH_PLACE = gql`
-  query SearchPlace($name: String!) {
-    searchPlace(name: $name) {
-      _id
-      name
-      geometry {
-        location {
-          lat
-          lng
-        }
-      }
-      business_status
-      formatted_address
-      rating
-      types
-      photos {
-        photo_reference
-      }
-      user_ratings_total
-    }
-  }
-`;

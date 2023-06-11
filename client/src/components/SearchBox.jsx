@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useMap } from "react-leaflet";
 import { useGeolocation } from "@uidotdev/usehooks";
-import { useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import { getDistanceInKm } from "../utils/distance";
-import { SEARCH_PLACE } from "../graphql/queries";
+import { SEARCH_PLACE } from "../graphql/mutations";
 
 export default function SearchBox({ setPosition, refsPopup }) {
   const parentMap = useMap();
@@ -12,7 +12,7 @@ export default function SearchBox({ setPosition, refsPopup }) {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const searchPlaceControl = useQuery(SEARCH_PLACE, {
+  const [callSearch, { loading, error }] = useMutation(SEARCH_PLACE, {
     variables: { name: searchQuery },
     onCompleted({ searchPlace }) {
       if (searchPlace) {
@@ -33,17 +33,22 @@ export default function SearchBox({ setPosition, refsPopup }) {
     },
   });
 
-  if (searchPlaceControl.loading) return "Loading...";
-  if (searchPlaceControl.error) {
-    console.error(searchPlaceControl.error);
-    return `Error! ${searchPlaceControl.error.message}`;
+  function handleSubmit(e) {
+    e.preventDefault();
+    callSearch();
+  }
+
+  if (loading) return "Loading...";
+  if (error) {
+    console.error(error);
+    return `Error! ${error.message}`;
   }
 
   return (
     <div className="leaflet-top leaflet-left mt-16">
       <form
         className="flex items-center relative w-full leaflet-control leaflet-bar"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={handleSubmit}
       >
         <label htmlFor="simple-search" className="sr-only">
           Search

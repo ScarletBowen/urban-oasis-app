@@ -24,19 +24,6 @@ const resolvers = {
         .populate("friends")
         .populate("posts");
     },
-    searchPlace: async (root, { name }, context) => {
-      try {
-        if (name === "") {
-          return [];
-        }
-        const places = await Place.find({
-          name: { $regex: new RegExp(name, "i") },
-        });
-        return places;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    },
     findAllParks: async (root, args) => {
       try {
         const allParks = await Place.find();
@@ -229,6 +216,19 @@ const resolvers = {
       } catch (error) {
         console.error(error);
         throw error;
+      }
+    },
+    searchPlace: async (root, { name }, context) => {
+      try {
+        if (name === "") {
+          return [];
+        }
+        const places = await Place.find({
+          name: { $regex: new RegExp(name, "i") },
+        });
+        return places;
+      } catch (error) {
+        throw new Error(error.message);
       }
     },
   },
