@@ -2,7 +2,27 @@
 City dwellers from around the country can use this app to find a greenspace of their liking to find peace and calm in their day. Our app includes being able to find different parks, according to your location. You may find what is around you and find one to your liking. The technology we used for this project includes: React for the front end development, GraphQL, node and express servers, MongoDB, and we must deploy to heroku.
 
 ***Acceptance Criteria***
+GIVEN a website to find a greenspace
 
+AS a user, I want to find a park on the map
+
+WHEN I run `npm run build` I should successfully be able to see the website
+
+WHEN I view the file structure, I should be able to see the client and server files
+
+WHEN I deploy to Heroku, I should be able to see my application running
+
+WHEN I enter the homepage, I should see my navbar and be able to sign up as a new user
+
+WHEN I enter the login page, I should be able to sign in with the credentials I made
+
+WHEN I enter the page, the map should show up
+
+WHEN I see the map, there shall be markers pointing to different greenspaces
+
+WHEN I see my friends on the application, I should be able to add and delete them
+
+AS a user, I should see the footer and be able to donate to the website 
 
 
 ***Grading Requirements***
