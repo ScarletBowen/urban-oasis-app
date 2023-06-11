@@ -11,6 +11,8 @@ const typeDefs = gql`
     gender: String
     avatar: String
     password: String!
+    friendCount: Int
+    friends: [User]
     savedPlaces: [String!]
   }
 
@@ -129,7 +131,16 @@ const typeDefs = gql`
 
   type Query {
     getUser: User
+    getOtherUser(username: String!): User
   }
+
+  type Query {
+    searchPlace(name: String!): [Place]
+    findAllParks: [Place]
+    getPlaceDetails(place_id: String!): Place
+    getFavoritePlaces: [Place]
+  }
+
   type Mutation {
     register(
       username: String!
@@ -140,12 +151,11 @@ const typeDefs = gql`
     login(username: String!, password: String!): AuthPayload!
   }
 
-  type Query {
-    searchPlace(name: String!): [Place]
-    findAllParks: [Place]
-    getPlaceDetails(place_id: String!): Place
-    getFavoritePlaces: [Place]
+  type Mutation {
+    addFriend(friendId: String!): User
+    removeFriend(friendId: String!): User
   }
+  
   type Mutation {
     savePlace(placeId: String!): User
     removePlace(placeId: String!): User

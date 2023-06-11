@@ -18,6 +18,12 @@ const resolvers = {
         throw new AuthenticationError(error.message);
       }
     },
+    getOtherUser: async (parent, { username }) => {
+      return User.findOne({ username })
+          .select('-__v -password')
+          .populate('friends')
+          .populate('posts')
+    },
     searchPlace: async (root, args, { name }) => {
       try {
         const places = await Place.find({
@@ -113,6 +119,58 @@ const resolvers = {
             username: user.username,
           },
         };
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+
+    addFriend: async (parent, { friendId }, { user }) => {
+      try {
+        if (!user) {
+          throw new AuthenticationError("You need to be logged in");
+        }
+
+        const updatedUser = await models.User.findOneAndUpdate(
+          { _id: user._id },
+          { $addToSet: { friends: friendId } },
+          { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+          throw new AuthenticationError(
+            "Unable to update user",
+            "DATABASE_ERROR"
+          );
+        }
+
+        return updatedUser;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+
+    removeFriend: async (parent, { friendId }, { user }) => {
+      try {
+        if (!user) {
+          throw new AuthenticationError("You need to be logged in");
+        }
+
+        const updatedUser = await models.User.findOneAndUpdate(
+          { _id: user._id },
+          { $pull: { friends: friendId } },
+          { new: true }
+        );
+
+        if (!updatedUser) {
+          throw new AuthenticationError(
+            "Unable to update user",
+            "DATABASE_ERROR"
+          );
+        }
+
+        return updatedUser;
       } catch (error) {
         console.error(error);
         throw error;

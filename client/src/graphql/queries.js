@@ -11,8 +11,34 @@ export const GET_ME = gql`
       bio
       avatar
       gender
+      friendCount
+      friends {
+        _id
+        username
+        bio
+        avatar
+      }
     }
   }
+`;
+
+export const GET_OTHER_USER = gql`
+    query getOtherUser($username: String!) {
+        user(username: $username) {
+            _id
+            username
+            bio
+            avatar
+            friendCount
+            friends {
+                _id
+                username
+                location
+                description
+                avatar
+            }
+        }
+    }
 `;
 
 export const FINDALLPARKS = gql`
