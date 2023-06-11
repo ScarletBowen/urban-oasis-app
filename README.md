@@ -1,11 +1,14 @@
 # urban-oasis-app
-a group web project that allows city dwellers to locate green spaces for peace and restoration
+City dwellers from around the country can use this app to find a greenspace of their liking to find peace and calm in their day. Our app includes being able to find different parks, according to your location. You may find what is around you and find one to your liking. The technology we used for this project includes: React for the front end development, GraphQL, node and express servers, MongoDB, and we must deploy to heroku.
 
 ***Acceptance Criteria***
+
+
 
 ***Grading Requirements***
 
 Technical Acceptance Criteria: 25%
+
 Satisfies the following code requirements:
 
 Application uses React for the front end.
@@ -45,6 +48,7 @@ Application user interface style is clean and polished.
 Application is responsive.
 
 Presentation: 10%
+
 Your group should present using Google Slides, Powerpoint, or a similar presentation software.
 
 Every group member should speak during the presentation.
