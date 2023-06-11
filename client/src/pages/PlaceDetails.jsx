@@ -55,7 +55,9 @@ function PlaceDetails() {
 
       <div className="px-6 pt-1 pb-2">
         {place.types?.map((type) => (
-          <span className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          <span
+           key = {type}
+           className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
             #{type}
           </span>
         ))}

@@ -70,7 +70,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    getUser: [User]
+    getUser: User
   }
   
   type Mutation {
@@ -141,9 +141,6 @@ const typeDefs = gql`
     open_now: Boolean!
   }
 
-  type Query {
-    getUser: User
-  }
   type Mutation {
     register(
       username: String!

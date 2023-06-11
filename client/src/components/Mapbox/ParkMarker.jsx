@@ -34,17 +34,17 @@ export default function ParkMarker({ place }) {
             >
               {place.name}
             </Link>
-            <div class="flex items-center">
+            <div className="flex items-center">
               <RatingStar rating={rating} />
-              <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
+              <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
               <span className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
                 {place.user_ratings_total} ratings
               </span>
             </div>
-            <div class="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold uppercase">
+            <div className="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold uppercase">
               <svg
                 version="1.1"
-                class="w-5 h-5 text-gray-400 inline-block"
+                className="w-5 h-5 text-gray-400 inline-block"
                 fill="currentColor"
                 viewBox="0 0 395.71 395.71"
               >

@@ -21,7 +21,7 @@ export default function FavoritePlaces() {
       <div className="p-8 ">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4">
           {places.map((place) => (
-            <PlaceCard place={place} />
+            <PlaceCard key={place.id} place={place} />
           ))}
         </div>
       </div>
