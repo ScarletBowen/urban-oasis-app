@@ -1,4 +1,3 @@
-import AboutUs from "./AboutUs";
 import Error from "./Error";
 import FavoritePlaces from "./FavoritePlaces";
 import Home from "./Home";
@@ -11,7 +10,6 @@ import UserProfile from "./UserProfile";
 export {
   Error,
   Home,
-  AboutUs,
   FavoritePlaces,
   MyProfile,
   PlaceDetails,
