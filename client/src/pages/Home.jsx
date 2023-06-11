@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import Mapbox from "../components/Mapbox";
-import BackgroundImage from "../../assets/greenbg.jpg";
+import BackgroundImage from "../assets/greenbg.jpg";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -11,9 +12,9 @@ const Home = () => {
       backgroundSize: 'cover', 
       backgroundRepeat: 'no-repeat'
     }}>
-      <Nav /> {/* Inserted Nav component */}
       <h1>Irvine, California</h1>
       <Mapbox />
+      <Footer />
     </div>
   );
 };
