@@ -1,37 +1,54 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const jwt = require("jsonwebtoken");
+const models = require("../models");
 
- const secret = "mysecretsshhhhh"
- const expiration = '2h';
+const expiration = "1d";
 
- module.exports = {
+function getSecretKey() {
+  return process.env.JWT_SECRET || "mysecretsshhhhh";
+}
 
-    authMiddleware: function({ req }) {
-        // allows token to be sent via req.body, req.query, or headers
-        let token = req.body.token || req.query.token || req.headers.authorization;
-
-        // separate "Bearer" from "<tokenvalue>"
-        if (req.headers.authorization) {
-            token = token
-                .split(' ')
-                .pop()
-                .trim();
-        }
-
-        // if no token, return request object as is
-        if (!token) {
-            return req;
-        }
-
-        try {
-            // decode & attach user data to request object
-            const { data } = jwt.verify(token, secret, { maxAge: expiration });
-            req.user = data;
-        } catch {
-            console.log('Invalid token');
-        }
-
-        // return updated request object
-        return req;
+function generateToken(userId, username) {
+  return jwt.sign(
+    {
+      user_id: userId,
+      username: username,
+    },
+    getSecretKey(),
+    {
+      expiresIn: expiration,
     }
- };
+  );
+}
+
+async function authMiddleware({ req, res }) {
+  // Get the user token from the headers.
+  var token = req.headers.authorization || "";
+
+  if (token.includes("Bearer")) {
+    token = token.split(" ").pop().trim();
+  }
+
+  if (!token) {
+    return req;
+  }
+
+  var userId;
+  try {
+    const decoded = jwt.verify(token, getSecretKey());
+    userId = decoded.user_id;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+
+  // Try to retrieve a user with the token
+  const user = await models.User.findOne({ _id: userId });
+
+  // Add the user to the context
+  return { user };
+}
+
+module.exports = {
+  generateToken,
+  authMiddleware,
+};

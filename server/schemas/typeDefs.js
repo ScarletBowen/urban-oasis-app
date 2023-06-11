@@ -2,11 +2,16 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
+    _id: String!
     user_id: String!
     username: String!
     fullname: String!
     email: String!
+    bio: String
+    gender: String
+    avatar: String
     password: String!
+    savedPlaces: [String!]
   }
 
   type AuthPayload {
@@ -42,6 +47,7 @@ const typeDefs = gql`
   }
 
   type Place {
+    _id: String
     business_status: String!
     formatted_address: String!
     geometry: Geometry!
@@ -61,16 +67,6 @@ const typeDefs = gql`
 
   type OpeningHours {
     open_now: Boolean!
-  }
-
-  type Mutation {
-    register(
-      username: String!
-      fullname: String!
-      email: String!
-      password: String!
-    ): AuthPayload!
-    login(username: String!, password: String!): AuthPayload!
   }
 
   type Comment {
@@ -132,20 +128,30 @@ const typeDefs = gql`
   }
 
   type Query {
-    searchPlace(name: String!): [Place]
-    findAllParks: [Place]
+    getUser: User
+  }
+  type Mutation {
+    register(
+      username: String!
+      fullname: String!
+      email: String!
+      password: String!
+    ): AuthPayload!
+    login(username: String!, password: String!): AuthPayload!
   }
 
   type Query {
-    getUser: User
     searchPlace(name: String!): [Place]
     findAllParks: [Place]
-    getPlaceDetails(place_id: ID!): [Place]
+    getPlaceDetails(place_id: String!): Place
+    getFavoritePlaces: [Place]
+  }
+  type Mutation {
+    savePlace(placeId: String!): User
+    removePlace(placeId: String!): User
   }
 
   type Mutation {
-    savePlace(input: PlaceInput!): User
-    removePlace(placeId: String!): User
     addComment(commentBody: String!, place_id: String!): User
     removeComment(commentId: ID!): User
   }

@@ -1,21 +1,19 @@
-const models = require("../models");
-var jwt = require("jsonwebtoken");
-const Place = require("../models/Place");
-
 const bcrypt = require("bcrypt");
 const {
   AuthenticationError,
   UserInputError,
 } = require("apollo-server-express");
 
+const models = require("../models");
+const Place = require("../models/Place");
+const { generateToken } = require("../utils/auth");
+
 const resolvers = {
   Query: {
     getUser: async (root, args, { user }) => {
       try {
         if (!user) throw new AuthenticationError("You are not authenticated!");
-        // TODO: update later
-        if (!user) throw new Error("You are not authenticated!");
-        return await models.User.findAll({ username: "abc" });
+        return user;
       } catch (error) {
         throw new AuthenticationError(error.message);
       }
@@ -31,19 +29,37 @@ const resolvers = {
       }
     },
     findAllParks: async (root, args) => {
-      const allParks = await Place.find();
-      return allParks;
+      try {
+        const allParks = await Place.find();
+        return allParks;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
     },
 
-    getPlaceDetails: async (root, args) => {
+    getPlaceDetails: async (root, { place_id }) => {
       try {
-        const place = await Place.findOne({ place_id: args.place_id });
+        const place = await Place.findOne({ _id: place_id });
         if (!place) {
           throw new Error("Place not found");
         }
         return place;
       } catch (error) {
-        throw new Error(error.message);
+        console.error(error);
+        throw error;
+      }
+    },
+    getFavoritePlaces: async (root, args, { user }) => {
+      try {
+        const places = await Place.find({ _id: { $in: user.savedPlaces } });
+        if (!places) {
+          throw new Error("Places not found");
+        }
+        return places;
+      } catch (error) {
+        console.error(error);
+        throw error;
       }
     },
   },
@@ -61,11 +77,7 @@ const resolvers = {
           email,
           password: await bcrypt.hash(password, 10),
         });
-        const token = jwt.sign(
-          { user_id: user._id, username: user.username },
-          process.env.JWT_SECRET || "mysecretsshhhhh",
-          { expiresIn: "1y" }
-        );
+        const token = generateToken(user._id, user.username);
 
         return {
           token,
@@ -92,11 +104,7 @@ const resolvers = {
         }
 
         // return jwt
-        const token = jwt.sign(
-          { user_id: user._id, username: user.username },
-          process.env.JWT_SECRET || "mysecretsshhhhh",
-          { expiresIn: "1d" }
-        );
+        const token = generateToken(user._id, user.username);
 
         return {
           token,
@@ -106,19 +114,20 @@ const resolvers = {
           },
         };
       } catch (error) {
+        console.error(error);
         throw error;
       }
     },
 
-    savePlace: async (parent, { input }, context) => {
+    savePlace: async (parent, { placeId }, { user }) => {
       try {
-        if (!context.user) {
+        if (!user) {
           throw new AuthenticationError("You need to be logged in");
         }
 
         const updatedUser = await models.User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { savedPlaces: input } },
+          { _id: user._id },
+          { $addToSet: { savedPlaces: placeId } },
           { new: true, runValidators: true }
         );
 
@@ -131,19 +140,20 @@ const resolvers = {
 
         return updatedUser;
       } catch (error) {
-        throw new AuthenticationError("SAVE_PLACE_ERROR");
+        console.error(error);
+        throw error;
       }
     },
 
-    removePlace: async (parent, { placeId }, context) => {
+    removePlace: async (parent, { placeId }, { user }) => {
       try {
-        if (!context.user) {
+        if (!user) {
           throw new AuthenticationError("You need to be logged in");
         }
 
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { savedPlaces: { place_id: placeId } } },
+        const updatedUser = await models.User.findOneAndUpdate(
+          { _id: user._id },
+          { $pull: { savedPlaces: placeId } },
           { new: true }
         );
 
@@ -156,7 +166,8 @@ const resolvers = {
 
         return updatedUser;
       } catch (error) {
-        throw new AuthenticationError("REMOVE_PLACE_ERROR");
+        console.error(error);
+        throw error;
       }
     },
   },
