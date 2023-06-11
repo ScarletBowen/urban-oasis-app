@@ -9,6 +9,7 @@ import {
 
 // import pages and components
 import {
+  DonationPage,
   Error,
   Home,
   Signin,
@@ -21,6 +22,8 @@ import {
 } from "./pages";
 
 import Nav from "./components/Nav";
+import DonationForm from "./components/DonationForm";
+import Footer from "./components/footer";
 // import { loadStripe } from "@stripe/stripe-js";
 // import { Elements } from "@stripe/react-stripe-js";
 // import DonationForm from "./components/donationForm";
@@ -44,6 +47,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <Home />
+        <Footer />
       </>
     ),
     errorElement: <Error />,
@@ -54,6 +58,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <Signin />
+        <Footer />
       </>
     ),
   },
@@ -63,6 +68,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <Signup />
+        {/* <Footer /> */}
       </>
     ),
   },
@@ -72,6 +78,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <AboutUs />
+        {/* <Footer /> */}
       </>
     ),
   },
@@ -81,6 +88,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <MyProfile />
+        <Footer />
       </>
     ),
   },
@@ -90,6 +98,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <UserProfile />
+        {/* <Footer /> */}
       </>
     ),
   },
@@ -99,6 +108,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <PlaceDetails />
+        {/* <Footer /> */}
       </>
     ),
   },
@@ -108,6 +118,17 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <FavoritePlaces />
+        {/* <Footer /> */}
+      </>
+    ),
+  },
+  {
+    path: "donationpage",
+    element: (
+      <>
+        <Nav />
+        <DonationPage />
+        <Footer />
       </>
     ),
   },

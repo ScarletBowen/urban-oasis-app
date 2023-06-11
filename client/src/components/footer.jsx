@@ -1,15 +1,16 @@
 import React from 'react';
-import { FooterLink, Heading } from './FooterStyles';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
+    <footer>
     <div>
-      <Heading>Donate</Heading>
-      <FooterLink as={Link} to="/donationPage">
+      <h1>Donate</h1>
+      <p as={Link} to="/DonationPage">
         Make a Donation
-      </FooterLink>
+      </p>
     </div>
+    </footer>
   );
 };
 

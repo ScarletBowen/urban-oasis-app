@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_PLACE_DETAILS } from '../utils/queries.js';
+import { GET_PLACE_DETAILS } from '../graphql/queries.js';
 import FavoriteBtn from '../components/FavoriteBtn';
 import { useState } from 'react';
 

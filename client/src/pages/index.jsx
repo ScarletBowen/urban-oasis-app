@@ -7,6 +7,7 @@ import PlaceDetails from "./PlaceDetails";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import UserProfile from "./UserProfile";
+import DonationPage from "./DonationPage";
 
 export {
   Error,
@@ -18,4 +19,5 @@ export {
   Signin,
   Signup,
   UserProfile,
+  DonationPage,
 };

@@ -13,5 +13,9 @@
     "license": "ISC",
     "devDependencies": {
         "concurrently": "^8.1.0"
+    },
+    "dependencies": {
+        "@stripe/react-stripe-js": "^2.1.0",
+        "@stripe/stripe-js": "^1.54.0"
     }
 }
