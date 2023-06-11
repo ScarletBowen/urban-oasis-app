@@ -7,6 +7,9 @@ const typeDefs = gql`
     username: String!
     fullname: String!
     email: String!
+    bio: String
+    gender: String
+    avatar: String
     password: String!
     savedPlaces: [String!]
   }

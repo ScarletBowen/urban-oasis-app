@@ -20,6 +20,15 @@ const userSchema = new mongoose.Schema({
     unique: true,
     match: [/.+@.+\..+/, "Must match an email address!"],
   },
+  bio: {
+    type: String,
+  },
+  gender: {
+    type: String,
+  },
+  avatar: {
+    type: String,
+  },
   password: {
     type: String,
     required: true,

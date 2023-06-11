@@ -8,6 +8,9 @@ export const GET_ME = gql`
       fullname
       email
       savedPlaces
+      bio
+      avatar
+      gender
     }
   }
 `;
