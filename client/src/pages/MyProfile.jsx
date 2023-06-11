@@ -1,7 +1,9 @@
 // import dependencies
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
+import useToken from "../hooks/useToken";
+import Auth from "../utils/auth";
 
 // import queries and mutations
 import { GET_ME, GET_OTHER_USER } from "../graphql/queries";
@@ -10,6 +12,9 @@ import FriendsList from "../components/FriendsList";
 
 
 const MyProfile = () => {
+  const [me, setMe] = useState(false);
+  const [token, setToken] = useToken();
+
   // get logged-in user data
   const getMeQuery = useQuery(GET_ME);
 
@@ -75,34 +80,65 @@ const MyProfile = () => {
           </span>
           <span className="tracking-wide">About</span>
         </div>
+
+
         <div className="text-gray-700">
           <div className="grid md:grid-cols-2 text-sm">
-            <div className="grid grid-cols-2">
-              <div className="px-4 py-2 font-semibold">Username</div>
-              <div className="px-4 py-2">{user.username}</div>
-            </div>
-            <div className="grid grid-cols-2">
-              <div className="px-4 py-2 font-semibold">Full Name</div>
-              <div className="px-4 py-2">{user.fullname}</div>
-            </div>
-            <div className="grid grid-cols-2">
-              <div className="px-4 py-2 font-semibold">Email.</div>
-              <div className="px-4 py-2">
-                <a className="text-blue-800" href={`mailto:${user.email}`}>
-                  {user.email}
-                </a>
+          {/* if logged in */}
+          {!!token ? (
+            <>
+              <div className="grid grid-cols-2">
+                <div className="px-4 py-2 font-semibold">Username</div>
+                <div className="px-4 py-2">{user.username}</div>
               </div>
-            </div>
-            <div className="grid grid-cols-2">
-              <div className="px-4 py-2 font-semibold">Bio</div>
-              <div className="px-4 py-2">{user.bio}</div>
-            </div>
-            <div className="grid grid-cols-2">
-              <div className="px-4 py-2 font-semibold">Gender</div>
-              <div className="px-4 py-2">{user.gender}</div>
-            </div>
+
+              <div className="grid grid-cols-2">
+                <div className="px-4 py-2 font-semibold">Full Name</div>
+                <div className="px-4 py-2">{user.fullname}</div>
+              </div>
+
+              <div className="grid grid-cols-2">
+                <div className="px-4 py-2 font-semibold">Email.</div>
+                <div className="px-4 py-2">
+                  <a className="text-blue-800" href={`mailto:${user.email}`}>
+                    {user.email}
+                  </a>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2">
+                <div className="px-4 py-2 font-semibold">Bio</div>
+                <div className="px-4 py-2">{user.bio}</div>
+              </div>
+
+              <div className="grid grid-cols-2">
+                <div className="px-4 py-2 font-semibold">Gender</div>
+                <div className="px-4 py-2">{user.gender}</div>
+              </div>
+            </>
+          ) : null}
+
+          {/* if not logged in */}
+          {!!!token ? (
+            <>
+
+              <div className="grid grid-cols-2">
+                <div className="px-4 py-2 font-semibold">Username</div>
+                <div className="px-4 py-2">{user.username}</div>
+              </div>
+
+              <div className="grid grid-cols-2">
+                <div className="px-4 py-2 font-semibold">Bio</div>
+                <div className="px-4 py-2">{user.bio}</div>
+              </div>
+
+            </>
+            ) : null}
+
           </div>
         </div>
+
+
       </div>
 
       <FriendsList friends={user.friends} />
