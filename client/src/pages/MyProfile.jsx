@@ -1,14 +1,13 @@
 // import dependencies
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 // import queries and mutations
-import { GET_ME } from "../graphql/queries";
+import { GET_ME, GET_OTHER_USER } from "../graphql/queries";
+import { ADD_FRIEND, REMOVE_FRIEND } from "../graphql/mutations";
+import FriendsList from "../components/FriendsList";
 
-// import components
-// import Footer from '../components/Footer';
-// import MyProfileCard from '../components/MyProfileCard';
 
 const MyProfile = () => {
   // get logged-in user data
@@ -21,6 +20,33 @@ const MyProfile = () => {
   }
 
   const user = getMeQuery.data.getUser;
+
+  //add friend
+  // const [addFriend] = useMutation(ADD_FRIEND);
+  // const [following, setFollowing] = useState(false);
+  // const handleAddFriend = async () => {
+  //   try {
+  //     await addFriend({
+  //       variables: { id: user._id }
+  //     });
+  //     setFollowing(true);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
+
+  //remove friend
+  // const [removeFriend] = useMutation(REMOVE_FRIEND);
+  // const handleRemoveFriend = async () => {
+  //   try {
+  //     await removeFriend({
+  //       variables: { id: user._id }
+  //     });
+  //     setFollowing(false);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
 
   // if user is logged in, render MyProfileCard component
   return (
@@ -79,8 +105,9 @@ const MyProfile = () => {
         </div>
       </div>
 
-      <div>Friend List component</div>
+      <FriendsList friends={user.friends} />
     </div>
+    
   );
 };
 
