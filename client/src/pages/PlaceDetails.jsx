@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 
-import { GET_PLACE_DETAILS } from "../graphql/queries.js";
+import { GET_PLACE_DETAILS, GET_ME } from "../graphql/queries.js";
 import FavoriteBtn from "../components/FavoriteBtn";
 import * as useUrlQuery from "../hooks/useQuery";
 import RatingStar from "../components/RatingStar.jsx";
@@ -10,19 +10,25 @@ function PlaceDetails() {
   const query = useUrlQuery.default();
   const placeId = query.get("placeId");
 
-  const [isFavorited] = useState(false);
-
-  const { loading, error, data } = useQuery(GET_PLACE_DETAILS, {
+  const getMeQuery = useQuery(GET_ME);
+  const getPlaceDetailsQuery = useQuery(GET_PLACE_DETAILS, {
     variables: { id: placeId },
   });
 
-  if (loading) return "Loading...";
-  if (error) {
-    console.error(error);
-    return `Error! ${error.message}`;
+  if (getMeQuery.loading) return "Loading...";
+  if (getMeQuery.error) {
+    console.error(getMeQuery.error);
+    return `Error! ${getMeQuery.error.message}`;
   }
 
-  const place = data.getPlaceDetails;
+  if (getPlaceDetailsQuery.loading) return "Loading...";
+  if (getPlaceDetailsQuery.error) {
+    console.error(getPlaceDetailsQuery.error);
+    return `Error! ${getPlaceDetailsQuery.error.message}`;
+  }
+
+  const place = getPlaceDetailsQuery.data.getPlaceDetails;
+  const user = getMeQuery.data.getUser;
   const rating = Math.round(place.rating);
 
   return (
@@ -37,7 +43,6 @@ function PlaceDetails() {
 
       <div className="flex flex-row mt-2 text-md">
         <RatingStar rating={rating} />
-
         <span className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
           ({place.user_ratings_total} ratings)
         </span>
@@ -58,7 +63,7 @@ function PlaceDetails() {
 
       <FavoriteBtn
         placeId={place._id}
-        isFavorited={isFavorited}
+        isFavorited={user.savedPlaces.includes(place._id)}
         // Pass setIsFavorited if you want to update favorite status from inside FavoriteBtn
       />
     </div>

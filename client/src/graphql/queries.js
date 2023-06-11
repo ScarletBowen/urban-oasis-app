@@ -1,21 +1,13 @@
 import { gql } from "@apollo/client";
 
 export const GET_ME = gql`
-  query user($username: String!) {
-    user(username: $username) {
+  query GetUser {
+    getUser {
       _id
       username
+      fullname
       email
-    }
-  }
-`;
-
-export const GET_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
-      _id
-      username
-      email
+      savedPlaces
     }
   }
 `;
@@ -46,6 +38,7 @@ export const FINDALLPARKS = gql`
 export const GET_PLACE_DETAILS = gql`
   query GetPlaceDetails($id: String!) {
     getPlaceDetails(place_id: $id) {
+      _id
       name
       formatted_address
       photos {

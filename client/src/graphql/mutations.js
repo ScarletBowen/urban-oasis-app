@@ -50,27 +50,17 @@ export const ADD_FRIEND = gql`
 `;
 
 export const SAVE_PLACE_MUTATION = gql`
-  mutation SavePlace($input: PlaceInput!) {
-    savePlace(input: $input) {
-      _id
+  mutation SavePlace($placeId: String!) {
+    savePlace(placeId: $placeId) {
       username
-      savedPlaces {
-        place_id
-        name
-      }
     }
   }
 `;
 
 export const REMOVE_PLACE_MUTATION = gql`
-  mutation RemovePlace($placeId: ID!) {
+  mutation RemovePlace($placeId: String!) {
     removePlace(placeId: $placeId) {
-      _id
       username
-      savedPlaces {
-        place_id
-        name
-      }
     }
   }
 `;
