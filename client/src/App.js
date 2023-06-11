@@ -13,7 +13,6 @@ import {
   Home,
   Signin,
   Signup,
-  AboutUs,
   MyProfile,
   UserProfile,
   PlaceDetails,
@@ -59,15 +58,6 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <Signup />
-      </>
-    ),
-  },
-  {
-    path: "aboutus",
-    element: (
-      <>
-        <Nav />
-        <AboutUs />
       </>
     ),
   },
