@@ -15,7 +15,7 @@ const resolvers = {
         if (!user) throw new AuthenticationError("You are not authenticated!");
         // TODO: update later
         if (!user) throw new Error("You are not authenticated!");
-        return await models.User.findAll({ username: "abc" });
+        return await models.User.findOne({ username: "abc" });
       } catch (error) {
         throw new AuthenticationError(error.message);
       }
@@ -31,19 +31,25 @@ const resolvers = {
       }
     },
     findAllParks: async (root, args) => {
-      const allParks = await Place.find();
-      return allParks;
+      try {
+        const allParks = await Place.find();
+        return allParks;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
     },
 
-    getPlaceDetails: async (root, args) => {
+    getPlaceDetails: async (root, { place_id }) => {
       try {
-        const place = await Place.findOne({ place_id: args.place_id });
+        const place = await Place.findOne({ _id: place_id });
         if (!place) {
           throw new Error("Place not found");
         }
         return place;
       } catch (error) {
-        throw new Error(error.message);
+        console.error(error);
+        throw error;
       }
     },
   },
@@ -106,6 +112,7 @@ const resolvers = {
           },
         };
       } catch (error) {
+        console.error(error);
         throw error;
       }
     },

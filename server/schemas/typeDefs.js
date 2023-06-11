@@ -42,6 +42,7 @@ const typeDefs = gql`
   }
 
   type Place {
+    _id: String
     business_status: String!
     formatted_address: String!
     geometry: Geometry!
@@ -134,13 +135,11 @@ const typeDefs = gql`
   type Query {
     searchPlace(name: String!): [Place]
     findAllParks: [Place]
+    getPlaceDetails(place_id: String!): Place
   }
 
   type Query {
     getUser: User
-    searchPlace(name: String!): [Place]
-    findAllParks: [Place]
-    getPlaceDetails(place_id: ID!): [Place]
   }
 
   type Mutation {
