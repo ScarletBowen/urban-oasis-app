@@ -50,6 +50,18 @@ const resolvers = {
         throw error;
       }
     },
+    getFavoritePlaces: async (root, args, { user }) => {
+      try {
+        const places = await Place.find({ _id: { $in: user.savedPlaces } });
+        if (!places) {
+          throw new Error("Places not found");
+        }
+        return places;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
   },
 
   Mutation: {

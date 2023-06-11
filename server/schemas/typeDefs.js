@@ -144,6 +144,7 @@ const typeDefs = gql`
     searchPlace(name: String!): [Place]
     findAllParks: [Place]
     getPlaceDetails(place_id: String!): Place
+    getFavoritePlaces: [Place]
   }
   type Mutation {
     savePlace(placeId: String!): User

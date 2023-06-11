@@ -54,3 +54,17 @@ export const GET_PLACE_DETAILS = gql`
     }
   }
 `;
+
+export const GET_FAVORITE_PLACES = gql`
+  query GetFavoritePlaces {
+    getFavoritePlaces {
+      _id
+      name
+      formatted_address
+      rating
+      user_ratings_total
+      business_status
+      types
+    }
+  }
+`;
