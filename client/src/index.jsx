@@ -1,21 +1,13 @@
 import React from "react";
-import { 
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements
-} 
-from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from "@apollo/client";
-import "./index.css";
-import router from "./App";
-import Nav from "./components/Nav";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
+import "leaflet/dist/leaflet.css";
+
+import "./index.css";
+
+import router from "./App";
 
 const client = new ApolloClient({
   uri: "http://localhost:3001/graphql",
@@ -28,7 +20,4 @@ root.render(
   <ApolloProvider client={client}>
     <RouterProvider router={router} />
   </ApolloProvider>
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>
 );

@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
@@ -8,12 +8,12 @@ const typeDefs = gql`
     email: String!
     password: String!
   }
-  
+
   type AuthPayload {
     token: String!
     user: User!
   }
-  
+
   type Location {
     lat: Float!
     lng: Float!
@@ -63,10 +63,6 @@ const typeDefs = gql`
     open_now: Boolean!
   }
 
-  type Query {
-    getUser: [User]
-  }
-  
   type Mutation {
     register(
       username: String!
@@ -134,7 +130,7 @@ const typeDefs = gql`
   input OpeningHoursInput {
     open_now: Boolean!
   }
-  
+
   type Query {
     searchPlace(name: String!): [Place]
     findAllParks: [Place]
@@ -146,7 +142,6 @@ const typeDefs = gql`
     findAllParks: [Place]
     getPlaceDetails(place_id: ID!): [Place]
   }
-  
 
   type Mutation {
     savePlace(input: PlaceInput!): User

@@ -1,11 +1,12 @@
 const models = require("../models");
 var jwt = require("jsonwebtoken");
-const Place = require('../models/Place');
+const Place = require("../models/Place");
 
 const bcrypt = require("bcrypt");
-const { AuthenticationError, UserInputError, ApolloError } = require('apollo-server-express');
-const { GraphQLError } = require("graphql");
-
+const {
+  AuthenticationError,
+  UserInputError,
+} = require("apollo-server-express");
 
 const resolvers = {
   Query: {
@@ -21,8 +22,8 @@ const resolvers = {
     },
     searchPlace: async (root, args, { name }) => {
       try {
-        const places = await Place.find({ 
-          name: { $regex: new RegExp(name, "i") }
+        const places = await Place.find({
+          name: { $regex: new RegExp(name, "i") },
         });
         return places;
       } catch (error) {
@@ -46,7 +47,6 @@ const resolvers = {
       }
     },
   },
-  
 
   Mutation: {
     register: async (root, { username, fullname, email, password }) => {
@@ -66,18 +66,17 @@ const resolvers = {
           process.env.JWT_SECRET || "mysecretsshhhhh",
           { expiresIn: "1y" }
         );
-        let createdUser = {
-          user_id: user._id,
-          username: user.username,
-        };
 
         return {
           token,
-          user: createdUser,
+          user: {
+            user_id: user._id,
+            username: user.username,
+          },
           message: "Registration successful",
         };
       } catch (error) {
-        throw new Error("This value already exists. Please provide a unique value.");
+        throw error;
       }
     },
 
@@ -107,7 +106,7 @@ const resolvers = {
           },
         };
       } catch (error) {
-        throw new AuthenticationError("LOGIN_ERROR");
+        throw error;
       }
     },
 
@@ -116,15 +115,18 @@ const resolvers = {
         if (!context.user) {
           throw new AuthenticationError("You need to be logged in");
         }
-        
+
         const updatedUser = await models.User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { savedPlaces: input } },
           { new: true, runValidators: true }
         );
-        
+
         if (!updatedUser) {
-          throw new AuthenticationError("Unable to update user", "DATABASE_ERROR");
+          throw new AuthenticationError(
+            "Unable to update user",
+            "DATABASE_ERROR"
+          );
         }
 
         return updatedUser;
@@ -133,29 +135,31 @@ const resolvers = {
       }
     },
 
-  removePlace: async (parent, { placeId }, context) => {
-    try {
-      if (!context.user) {
-        throw new AuthenticationError("You need to be logged in");
+    removePlace: async (parent, { placeId }, context) => {
+      try {
+        if (!context.user) {
+          throw new AuthenticationError("You need to be logged in");
+        }
+
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedPlaces: { place_id: placeId } } },
+          { new: true }
+        );
+
+        if (!updatedUser) {
+          throw new AuthenticationError(
+            "Unable to update user",
+            "DATABASE_ERROR"
+          );
+        }
+
+        return updatedUser;
+      } catch (error) {
+        throw new AuthenticationError("REMOVE_PLACE_ERROR");
       }
-  
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $pull: { savedPlaces: { place_id: placeId } } },
-        { new: true }
-      );
-  
-      if (!updatedUser) {
-        throw new AuthenticationError("Unable to update user", "DATABASE_ERROR");
-      }
-  
-      return updatedUser;
-    } catch (error) {
-      throw new AuthenticationError("REMOVE_PLACE_ERROR");
-    }
-  },
+    },
   },
 };
-
 
 module.exports = resolvers;

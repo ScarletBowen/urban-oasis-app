@@ -1,15 +1,8 @@
 import React from "react";
-import { useState } from "react";
-import Nav from "../components/Nav";
-import Mapbox from "../components/Mapbox";
+import { Mapbox } from "../components";
 
 const Home = () => {
-  return (
-    <div>
-      <h1>Irvine, California</h1>
-      <Mapbox />
-    </div>
-  );
+  return <Mapbox />;
 };
 
 export default Home;
