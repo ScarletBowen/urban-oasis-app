@@ -29,14 +29,6 @@ export const GET_OTHER_USER = gql`
             username
             bio
             avatar
-            friendCount
-            friends {
-                _id
-                username
-                location
-                description
-                avatar
-            }
         }
     }
 `;

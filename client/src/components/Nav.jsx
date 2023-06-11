@@ -1,12 +1,26 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 
 import useToken from "../hooks/useToken";
 import Auth from "../utils/auth";
 
+// import queries and mutations
+import { GET_ME } from "../graphql/queries";
+
 export default function Nav() {
   const [showMenu, setShowMenu] = useState(false);
   const [token, setToken] = useToken();
+
+  const getMeQuery = useQuery(GET_ME);
+
+  if (getMeQuery.loading) return "Loading...";
+  if (getMeQuery.error) {
+    console.error(getMeQuery.error);
+    return `Error! ${getMeQuery.error.message}`;
+  }
+
+  const user = getMeQuery.data.getUser;
 
   return (
     <div className="fixed top-0 w-full" style={{ zIndex: 2000 }}>
@@ -48,7 +62,7 @@ export default function Nav() {
               {!!token ? (
                 <>
                   <Link
-                    to="/myprofile"
+                    to={`/profile/${user.username}`}
                     className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
                   >
                     My Profile
@@ -99,7 +113,7 @@ export default function Nav() {
             {!!token ? (
               <>
                 <Link
-                  to="/myprofile"
+                  to="/profile"
                   className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
                 >
                   My Profile

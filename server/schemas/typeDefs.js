@@ -71,20 +71,6 @@ const typeDefs = gql`
     open_now: Boolean!
   }
 
-  type Query {
-    getUser: User
-  }
-  
-  type Mutation {
-    register(
-      username: String!
-      fullname: String!
-      email: String!
-      password: String!
-    ): AuthPayload!
-    login(username: String!, password: String!): AuthPayload!
-  }
-
   type Comment {
     _id: ID!
     commentBody: String!

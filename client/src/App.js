@@ -13,7 +13,7 @@ import {
   Home,
   Signin,
   Signup,
-  MyProfile,
+  Profile,
   UserProfile,
   PlaceDetails,
   FavoritePlaces,
@@ -62,11 +62,11 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "myprofile",
+    path: "profile/:username",
     element: (
       <>
         <Nav />
-        <MyProfile />
+        <Profile />
       </>
     ),
   },

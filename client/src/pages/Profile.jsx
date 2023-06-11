@@ -1,7 +1,7 @@
 // import dependencies
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useParams } from "react-router-dom";
 import useToken from "../hooks/useToken";
 import Auth from "../utils/auth";
 
@@ -11,7 +11,7 @@ import { ADD_FRIEND, REMOVE_FRIEND } from "../graphql/mutations";
 import FriendsList from "../components/FriendsList";
 
 
-const MyProfile = () => {
+const Profile = () => {
   const [me, setMe] = useState(false);
   const [token, setToken] = useToken();
 
@@ -25,6 +25,7 @@ const MyProfile = () => {
   }
 
   const user = getMeQuery.data.getUser;
+  
 
   //add friend
   // const [addFriend] = useMutation(ADD_FRIEND);
@@ -53,10 +54,10 @@ const MyProfile = () => {
   //   }
   // };
 
-  // if user is logged in, render MyProfileCard component
+  // if user is logged in, render Profile page
   return (
     <div className="mt-16 w-full p-3 flex flex-col items-center">
-      <h1 className="text-4xl font-bold text-center mb-4">My Profile</h1>
+      <h1 className="text-4xl font-bold text-center mb-4">Profile</h1>
 
       <img src={user.avatar} alt="placeholder" className="h-60" />
 
@@ -147,4 +148,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default Profile;
