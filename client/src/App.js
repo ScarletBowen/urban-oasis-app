@@ -25,10 +25,10 @@ import PlaceDetails from "./pages/PlaceDetails";
 import FavoritePlaces from "./pages/FavoritePlaces";
 import Error from "./pages/Error";
 import Nav from "./components/Nav";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import DonationForm from "./components/donationForm";
-import { StripeProvider } from "./utils/StripeProvider";
+// import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import DonationForm from "./components/donationForm";
+// import { StripeProvider } from "./utils/StripeProvider";
 
 
 const httpLink = createHttpLink({
