@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
   mutation Login($username: String!, $password: String!) {
@@ -19,7 +19,12 @@ export const REGISTER_USER = gql`
     $email: String!
     $password: String!
   ) {
-    register(username: $username, fullname: $fullname, email: $email, password: $password) {
+    register(
+      username: $username
+      fullname: $fullname
+      email: $email
+      password: $password
+    ) {
       token
       user {
         user_id
@@ -30,18 +35,18 @@ export const REGISTER_USER = gql`
 `;
 
 export const ADD_FRIEND = gql`
-    mutation addFriend($friendId: ID!) {
-        addFriend(friendId: $friendId) {
-            _id
-            username
-            friendCount
-            friends {
-                _id
-                username
-                profileImage
-            }
-        }
+  mutation addFriend($friendId: ID!) {
+    addFriend(friendId: $friendId) {
+      _id
+      username
+      friendCount
+      friends {
+        _id
+        username
+        profileImage
+      }
     }
+  }
 `;
 
 export const SAVE_PLACE_MUTATION = gql`
@@ -52,7 +57,6 @@ export const SAVE_PLACE_MUTATION = gql`
       savedPlaces {
         place_id
         name
-        // Add all necessary fields here
       }
     }
   }
@@ -66,7 +70,6 @@ export const REMOVE_PLACE_MUTATION = gql`
       savedPlaces {
         place_id
         name
-        // Add all necessary fields here
       }
     }
   }

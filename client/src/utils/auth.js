@@ -1,15 +1,15 @@
-import decode from 'jwt-decode';
+import decode from "jwt-decode";
 
 class AuthService {
-  getProfile() {
-    return decode(this.getToken());
-  }
+  // getProfile() {
+  //   return decode(this.getToken());
+  // }
 
-  loggedIn() {
-    // Checks if there is a saved token and it's still valid
-    const token = this.getToken();
-    return !!token && !this.isTokenExpired(token);
-  }
+  // loggedIn() {
+  //   // Checks if there is a saved token and it's still valid
+  //   const token = this.getToken();
+  //   return !!token && !this.isTokenExpired(token);
+  // }
 
   isTokenExpired(token) {
     try {
@@ -24,22 +24,30 @@ class AuthService {
 
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token');
+    const token = localStorage.getItem("id_token");
+    if (this.isTokenExpired(token)) {
+      this.removeToken();
+      return null;
+    }
+    return token;
   }
 
-  login(idToken) {
+  saveToken(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken);
+    localStorage.setItem("id_token", idToken);
+  }
 
-    window.location.assign('/');
+  removeToken() {
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem("id_token");
   }
 
   logout() {
-    // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
+    this.removeToken();
     // this will reload the page and reset the state of the application
-    window.location.assign('/');
+    window.location.assign("/");
   }
 }
 
-export default new AuthService();
+const auth = new AuthService();
+export default auth;
