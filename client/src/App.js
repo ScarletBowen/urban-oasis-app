@@ -18,6 +18,7 @@ import {
   UserProfile,
   PlaceDetails,
   FavoritePlaces,
+  Donation,
 } from "./pages";
 
 import Nav from "./components/Nav";
@@ -104,6 +105,15 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <FavoritePlaces />
+      </>
+    ),
+  },
+  {
+    path: "donation",
+    element: (
+      <>
+        <Nav />
+        <Donation />
       </>
     ),
   },

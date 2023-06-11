@@ -6,7 +6,6 @@ const typeDefs = gql`
     username: String!
     fullname: String!
     email: String!
-    password: String!
   }
 
   type AuthPayload {
@@ -137,7 +136,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    getUser: User
+    getMe: User
+    getUser: [User]
     searchPlace(name: String!): [Place]
     findAllParks: [Place]
     getPlaceDetails(place_id: ID!): [Place]

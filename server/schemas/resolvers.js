@@ -10,6 +10,15 @@ const {
 
 const resolvers = {
   Query: {
+    getMe: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user.user_id })
+          .select('-__v -password');
+        return userData;
+      }
+      console.log("context.user is: " + context.user);
+      return null;
+    },
     getUser: async (root, args, { user }) => {
       try {
         if (!user) throw new AuthenticationError("You are not authenticated!");
@@ -52,6 +61,7 @@ const resolvers = {
     register: async (root, { username, fullname, email, password }) => {
       try {
         const oldUser = await models.User.findOne({ username });
+        console.log(oldUser);
         if (oldUser) {
           throw new AuthenticationError("Username already exists");
         }
@@ -61,6 +71,7 @@ const resolvers = {
           email,
           password: await bcrypt.hash(password, 10),
         });
+        console.log(user);
         const token = jwt.sign(
           { user_id: user._id, username: user.username },
           process.env.JWT_SECRET || "mysecretsshhhhh",
@@ -83,6 +94,7 @@ const resolvers = {
     login: async (_, { username, password }) => {
       try {
         const user = await models.User.findOne({ username });
+        console.log(user);
         if (!user) {
           throw new UserInputError("No user with that username");
         }
