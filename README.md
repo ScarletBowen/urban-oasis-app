@@ -42,3 +42,4 @@ npm run build
 
 # Usage
 Enter `npm run develop` at the root directory in terminal. This will start up the React app and initialize the back-end at the same time. The application will open automatically in your browser. Navigating through the application is fairly straight-forward with the navigation links at the top of the screen. Oasis time!
+<img width="959" alt="image" src="https://github.com/ScarletBowen/urban-oasis-app/assets/120343929/eff9c701-072f-4176-9fcd-0326e24a23a3">
