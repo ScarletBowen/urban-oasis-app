@@ -94,3 +94,11 @@ export const GET_FAVORITE_PLACES = gql`
     }
   }
 `;
+
+export const CHECKOUT = gql`
+  query getCheckout {
+    checkout {
+      session
+    }
+  }
+`;

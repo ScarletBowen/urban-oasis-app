@@ -7,6 +7,7 @@ const {
 const models = require("../models");
 const Place = require("../models/Place");
 const { generateToken } = require("../utils/auth");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const resolvers = {
   Query: {
@@ -68,6 +69,19 @@ const resolvers = {
         throw error;
       }
     },
+  },
+
+  createStripePaymentIntent: async (_, { payment }) => {
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: payment.amount,
+        currency: payment.currency,
+      });
+
+      return {session:paymentIntent.id}
+    } catch (error) {
+      throw new Error("Failed to create payment intent.");
+    }
   },
 
   Mutation: {

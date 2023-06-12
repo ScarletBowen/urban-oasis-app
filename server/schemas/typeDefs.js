@@ -179,5 +179,19 @@ const typeDefs = gql`
     addComment(commentBody: String!, place_id: String!): User
     removeComment(commentId: ID!): User
   }
+
+  type StripePayment {
+    session:ID
+  }
+  
+  input PaymentInput {
+    amount: Int!
+    currency: String!
+  }
+  
+  type Query {
+    createStripePaymentIntent(payment: PaymentInput!): StripePayment!
+  }
+  
 `;
 module.exports = typeDefs;

@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import { CHECKOUT } from '../utils/mutations';
+import { CHECKOUT } from '../graphql/queries';
+import { useQuery } from '@apollo/client';
 
-const stripePromise = loadStripe('pk_test_51Mu74GDhddzOfBnOj6t7ugiiQic08NOE8hPCqa4EXD8LNa9y8ORy5sUJJ2joehVxofZjdisgb5q0rrnKTAPA43pG00QYknLHvf');
+
+const stripePromise = loadStripe(process.env.STRIPE_SECRET_KEY);
 
 
 export default function DonationForm() {
   
     const [clientSecret] = useState('');
-    const [data] = useState(null);
+    const [getCheckout, { data }] = useQuery(CHECKOUT);
   
     useEffect(() => {
       if (data) {
@@ -21,11 +23,11 @@ export default function DonationForm() {
     return (
       <>
       <h1>Payment</h1>
-      {stripePromise && clientSecret && (
+      stripePromise && (
       <Elements stripe={stripePromise} options={{ clientSecret }}>
         <DonationForm />
       </Elements>
-      )}
+      )
    </>
     );
   };
