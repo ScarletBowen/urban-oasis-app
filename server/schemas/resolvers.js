@@ -7,6 +7,7 @@ const {
 const models = require("../models");
 const User = require("../models/User");
 const Place = require("../models/Place");
+const Comment = require("../models/Comment");
 const { generateToken } = require("../utils/auth");
 
 const resolvers = {
@@ -244,6 +245,42 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
+    addComment: async (parent, { text, placeId }, { user }) => {
+      try {
+        if (!user) {
+          throw new AuthenticationError("You need to be logged in");
+        }
+    
+        const place = await Place.findOne({ _id: place._id });
+
+    if (!place) {
+      throw new Error("Place not found");
+    }
+
+    let updatedPlace;
+
+    if (place.comments && place.comments.length > 0) {
+      // Place already has comments, add the new comment
+      updatedPlace = await Place.findOneAndUpdate(
+        { _id: place._id },
+        { $push: { comments: { text, username: user.username } } },
+        { new: true }
+      );
+    } else {
+      // Place doesn't have comments yet, create a new comments array
+      updatedPlace = await Place.findOneAndUpdate(
+        { _id: place._id },
+        { comments: [{ text, username: user.username }] },
+        { new: true }
+      );
+    }
+
+      return updatedPlace;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
   },
 };
 

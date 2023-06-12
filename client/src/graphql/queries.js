@@ -71,6 +71,7 @@ export const GET_PLACE_DETAILS = gql`
       user_ratings_total
       business_status
       types
+      
     }
   }
 `;
@@ -85,6 +86,12 @@ export const GET_FAVORITE_PLACES = gql`
       user_ratings_total
       business_status
       types
+      comments {
+        _id
+        text
+        username
+        createdAt
+      }
     }
   }
 `;
