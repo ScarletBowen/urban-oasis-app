@@ -3,10 +3,12 @@ const { faker } = require("@faker-js/faker");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
+
 const Place = require("../models/Place");
 const User = require("../models/User");
 
 const places = require("./irvineparks.json");
+
 
 async function createRandomUser() {
   return {
@@ -17,10 +19,13 @@ async function createRandomUser() {
     password: await bcrypt.hash("123", 10),
     bio: faker.person.bio(),
     gender: faker.person.sex(),
+    friend_id: Math.random().toString(36),
     friends: [],
     savedPlaces: [],
   };
 }
+
+
 
 async function seedDB() {
   // Connect to the MongoDB database
