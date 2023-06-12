@@ -10,16 +10,16 @@ export default function Nav() {
 
   return (
     <div className="fixed top-0 w-full" style={{ zIndex: 2000 }}>
-      <header className="bg-white shadow-sm">
+      <header className="bg-white">
         <nav className="container mx-auto px-6 py-3">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center">
             <div className="flex justify-between items-center">
               <div>
                 <Link
                   to="/"
-                  className="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
+                  className="text-2xl font-medium text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
                 >
-                  Urban Oasis Locator
+                  Urban Oasis Locator 🌱
                 </Link>
               </div>
 
