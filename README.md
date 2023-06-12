@@ -1,5 +1,6 @@
 # urban-oasis-app
 City dwellers from around the country can use this app to find a greenspace of their liking to find peace and calm in their day. Our app includes being able to find different parks, according to your location. You may find what is around you and find one to your liking. The technology we used for this project includes: React for the front end development, GraphQL, node and express servers, MongoDB, and we must deploy to heroku.
+<img width="1237" alt="image" src="https://github.com/ScarletBowen/urban-oasis-app/assets/120343929/2c0f3ef8-618b-41c1-8b8d-f7ecf970aff6">
 
 ***Acceptance Criteria***
 
