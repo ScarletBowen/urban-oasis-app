@@ -11,7 +11,7 @@ The purpose of this project was to create a MERN + GraphQL application for city 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
-- [Contributing](#contributing)
+
 
 ## Technologies Used
 - [ReactJS](https://reactjs.org/)
@@ -42,4 +42,11 @@ npm run build
 
 # Usage
 Enter `npm run develop` at the root directory in terminal. This will start up the React app and initialize the back-end at the same time. The application will open automatically in your browser. Navigating through the application is fairly straight-forward with the navigation links at the top of the screen. Oasis time!
+
+# Screenshots
 <img width="959" alt="image" src="https://github.com/ScarletBowen/urban-oasis-app/assets/120343929/eff9c701-072f-4176-9fcd-0326e24a23a3">
+
+
+
+## Questions
+For any questions about this repository, please contact us!
