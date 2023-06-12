@@ -5,7 +5,7 @@ const CommentDisplay = ({ comments }) => {
   console.log(comments);
 
   if (!comments || comments.length === 0) {
-    return <p>No comments yet.</p>;
+    return <p className="w-full p-3 my-2 justify-center items-start">No comments yet.</p>;
   }
 
   return (
