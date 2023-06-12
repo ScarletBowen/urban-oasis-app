@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Navigate, Link, useParams } from "react-router-dom";
 import Auth from "../utils/auth";
+import profileBackground from "../assets/profileBackground.jpg";
 
 // import queries and mutations
 import { GET_ME, GET_OTHER_USER } from "../graphql/queries";
@@ -36,41 +37,26 @@ const UserProfile = () => {
   
   
 
-  //add friend
-  // const [addFriend] = useMutation(ADD_FRIEND);
-  // const [following, setFollowing] = useState(false);
-  // const handleAddFriend = async () => {
-  //   try {
-  //     await addFriend({
-  //       variables: { id: user._id }
-  //     });
-  //     setFollowing(true);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-
-  //remove friend
-  // const [removeFriend] = useMutation(REMOVE_FRIEND);
-  // const handleRemoveFriend = async () => {
-  //   try {
-  //     await removeFriend({
-  //       variables: { id: user._id }
-  //     });
-  //     setFollowing(false);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
 
   // if user is logged in, render Profile page
   return (
-<div className="mt-16 w-full p-3 flex flex-col items-center">
-  <h1 className="text-4xl font-bold text-center mb-4">Profile</h1>
+<div 
+style={{
+  backgroundImage: `url(${profileBackground})`,
+  backgroundPosition: "center",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  padding: "30px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}} 
+className="mt-16 w-full p-3 flex flex-col items-center">
+  <h1 className="text-4xl tracking-wide text-center font-light mb-4">Profile</h1>
 
-  <img src={otherUser.avatar} alt="placeholder" className="h-60" />
+  <img src={otherUser.avatar} alt="placeholder" className="w-50 h-60 drop-shadow-lg m-2 rounded-full" />
 
-  <div className="bg-white p-3 shadow-sm rounded-sm">
+  <div className="bg-white p-3 m-3 shadow-lg rounded-sm bg-emerald-50">
     <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
       <span className="text-green-500">
       <svg
@@ -93,7 +79,7 @@ const UserProfile = () => {
 
 
     <div className="text-gray-700">
-      <div className="grid md:grid-cols-2 text-sm">
+      <div className="grid md:grid-cols-1 text-sm">
 
         <div className="grid grid-cols-2">
           <div className="px-4 py-2 font-semibold">Username</div>
