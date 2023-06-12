@@ -25,6 +25,7 @@ function PlaceDetails() {
     onCompleted: () => {
       console.log("Comment saved successfully");
       setCommentText(""); // Clear the comment input field after saving
+      window.location.reload();
     },
   });
 
@@ -48,6 +49,11 @@ function PlaceDetails() {
   };
 
   const handleSaveComment = () => {
+    if (commentText.trim() === '') {
+      // Handle empty comment text
+      return;
+    }
+
     console.log(place._id, commentText)
     addCommentMutation({
       variables: {
@@ -58,7 +64,7 @@ function PlaceDetails() {
   };
   
   return (
-    <div className="flex flex-col items-center bg-gray-100 h-screen pt-20">
+    <div className="flex flex-col items-center bg-white h-screen pt-20">
       <h1 className="text-4xl font-bold text-center mb-4">{place.name}</h1>
 
       <img
@@ -104,7 +110,7 @@ function PlaceDetails() {
             value={commentText}
             onChange={handleCommentTextChange}
             placeholder="Add a comment..."
-            className="comment-input h-[10vh] mb-4 shadow-sm rounded-md w-96"
+            className="comment-input h-[10vh] mb-4 shadow-md rounded-md w-96 border"
           />
           <button onClick={handleSaveComment} className="block px-3 py-2 mt-0 text-sm font-semibold text-white bg-teal-500 rounded-lg hover:bg-teal-700 focus:bg-teal-700 focus:outline-none focus:shadow-outline-indigo">
             Post Comment

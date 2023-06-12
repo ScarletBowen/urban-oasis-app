@@ -10,7 +10,7 @@ export default function FavoriteBtn({ placeId, isFavorited }) {
   const [savePlace] = useMutation(SAVE_PLACE_MUTATION);
   const [removePlace] = useMutation(REMOVE_PLACE_MUTATION);
 
-  console.log(placeId)
+  
   return (
     <div className="flex space-x-4">
       {!isFavorited ? (

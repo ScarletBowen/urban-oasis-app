@@ -38,7 +38,8 @@ const resolvers = {
 
     getPlaceDetails: async (root, { place_id }) => {
       try {
-        const place = await Place.findOne({ _id: place_id });
+        const place = await Place.findOne({ _id: place_id })
+          .populate('comments');
         if (!place) {
           throw new Error("Place not found");
         }
@@ -251,9 +252,10 @@ const resolvers = {
           throw new AuthenticationError("You need to be logged in");
         }
     
-        const place = await Place.findOne({ _id: place._id });
+        const place = await Place.findOne({ _id: placeId });
 
     if (!place) {
+      console.log(place)
       throw new Error("Place not found");
     }
 
@@ -262,15 +264,15 @@ const resolvers = {
     if (place.comments && place.comments.length > 0) {
       // Place already has comments, add the new comment
       updatedPlace = await Place.findOneAndUpdate(
-        { _id: place._id },
-        { $push: { comments: { text, username: user.username } } },
+        { _id: placeId },
+        { $push: { comments: { text } } },
         { new: true }
       );
     } else {
       // Place doesn't have comments yet, create a new comments array
       updatedPlace = await Place.findOneAndUpdate(
-        { _id: place._id },
-        { comments: [{ text, username: user.username }] },
+        { _id: placeId },
+        { comments: [{ text }] },
         { new: true }
       );
     }

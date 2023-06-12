@@ -75,8 +75,8 @@ const typeDefs = gql`
 
   type Comment {
     _id: String!
-    text: String!
-    username: String!
+    text: String
+    username: String
     createdAt: String!
     createdBy: User!
     place_id: String!

@@ -96,7 +96,7 @@ export const SEARCH_PLACE = gql`
 export const ADD_COMMENT = gql`
   mutation AddComment($placeId: String!, $text: String!) {
     addComment(placeId: $placeId, text: $text) {
-
+      _id
       text
     }
   }
