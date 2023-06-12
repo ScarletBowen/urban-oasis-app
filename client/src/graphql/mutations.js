@@ -37,40 +37,68 @@ export const REGISTER_USER = gql`
 export const ADD_FRIEND = gql`
   mutation addFriend($friendId: ID!) {
     addFriend(friendId: $friendId) {
+      user_id
+      username
+      friendCount
+      friends {
+        user_id
+        username
+        avatar
+      }
+    }
+  }
+`;
+
+export const REMOVE_FRIEND = gql`
+  mutation removeFriend($id: ID!) {
+    removeFriend(friendId: $id) {
       _id
       username
       friendCount
       friends {
-        _id
+        user_id
         username
-        profileImage
+        avatar
       }
     }
   }
 `;
 
 export const SAVE_PLACE_MUTATION = gql`
-  mutation SavePlace($input: PlaceInput!) {
-    savePlace(input: $input) {
-      _id
+  mutation SavePlace($placeId: String!) {
+    savePlace(placeId: $placeId) {
       username
-      savedPlaces {
-        place_id
-        name
-      }
     }
   }
 `;
 
 export const REMOVE_PLACE_MUTATION = gql`
-  mutation RemovePlace($placeId: ID!) {
+  mutation RemovePlace($placeId: String!) {
     removePlace(placeId: $placeId) {
-      _id
       username
-      savedPlaces {
-        place_id
-        name
+    }
+  }
+`;
+
+export const SEARCH_PLACE = gql`
+  mutation SearchPlace($name: String!) {
+    searchPlace(name: $name) {
+      _id
+      name
+      geometry {
+        location {
+          lat
+          lng
+        }
       }
+      business_status
+      formatted_address
+      rating
+      types
+      photos {
+        photo_reference
+      }
+      user_ratings_total
     }
   }
 `;

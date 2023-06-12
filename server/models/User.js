@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 const placeSchema = require("./Place");
 const { Schema } = mongoose;
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   fullname: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   email: {
     type: String,
@@ -20,11 +20,27 @@ const userSchema = new mongoose.Schema({
     unique: true,
     match: [/.+@.+\..+/, "Must match an email address!"],
   },
+  bio: {
+    type: String,
+  },
+  gender: {
+    type: String,
+  },
+  avatar: {
+    type: String,
+  },
   password: {
     type: String,
     required: true,
-    minlength: 5
+    minlength: 5,
   },
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
+  savedPlaces: [{ type: String }],
 });
 
 // userSchema.pre('save', async function(next) {
@@ -40,14 +56,14 @@ const userSchema = new mongoose.Schema({
 //   return await bcrypt.compare(password, this.password);
 // };
 
-// userSchema.virtual('friendCount').get(function () {
-// 	return this.friends.length;
-// });
+userSchema.virtual('friendCount').get(function () {
+	return this.friends.length;
+});
 
-// userSchema.virtual('favoriteCount').get(function () {
-// 	return this.savedPlaces.length;
-// });
+userSchema.virtual('favoriteCount').get(function () {
+	return this.savedPlaces.length;
+});
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

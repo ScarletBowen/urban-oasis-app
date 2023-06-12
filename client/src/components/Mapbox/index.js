@@ -1,37 +1,39 @@
-import React from "react";
-
-import { Icon } from "leaflet";
+import React, { useState } from "react";
 import {
   MapContainer,
   TileLayer,
-  Marker,
-  Popup,
   ZoomControl,
+  Marker,
+  Polyline,
 } from "react-leaflet";
 import { useQuery } from "@apollo/client";
+import "./index.css";
+import { useGeolocation } from "@uidotdev/usehooks";
 
 import SearchBox from "../SearchBox.jsx";
+import ParkMarker from "./ParkMarker.jsx";
 
 import { FINDALLPARKS } from "../../graphql/queries.js";
-import treeIconFile from "./tree.png";
-
-// Define your custom icon
-const treeIcon = new Icon({
-  iconUrl: treeIconFile, //  tree icon file
-  iconSize: [25, 25], // size of the icon
-});
 
 export default function Mapbox() {
-  const position = [33.6725744, -117.7432627]; // lat/lng for Irvine, CA
+  const userLocation = useGeolocation();
+  // lat/lng for Irvine, CA
+  const [centerPosition, setCenterPosition] = useState([
+    33.6725744, -117.7432627,
+  ]);
+  const [selectedPosition, setSelectedPosition] = useState(null);
   const { loading, error, data } = useQuery(FINDALLPARKS);
+  var refsPopup = {};
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || userLocation.loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+
+  const userPosition = [userLocation.latitude, userLocation.longitude];
 
   return (
     <div>
       <MapContainer
-        center={position}
+        center={centerPosition}
         zoom={12}
         className="h-screen"
         zoomControl={false}
@@ -42,20 +44,31 @@ export default function Mapbox() {
         />
         <ZoomControl position="bottomright" />
 
-        <SearchBox />
+        <Marker position={userPosition}></Marker>
 
-        {data?.findAllParks.map((place, index) => (
-          <Marker
-            key={index}
-            position={[
-              place.geometry.location.lat,
-              place.geometry.location.lng,
-            ]}
-            icon={treeIcon}
-          >
-            <Popup>{place.name}</Popup>
-          </Marker>
+        {selectedPosition ? (
+          <Polyline
+            pathOptions={{ color: "blue" }}
+            positions={[userPosition, selectedPosition]}
+          />
+        ) : null}
+
+        {data?.findAllParks.map((place) => (
+          <ParkMarker
+            key={"ParkMarker" + place._id}
+            place={place}
+            applyRef={(ref) => {
+              refsPopup[place._id] = ref;
+            }}
+          />
         ))}
+
+        <SearchBox
+          setPosition={setCenterPosition}
+          userLocation={userLocation}
+          refsPopup={refsPopup}
+          setSelectedPosition={setSelectedPosition}
+        />
       </MapContainer>
     </div>
   );

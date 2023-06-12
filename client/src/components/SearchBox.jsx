@@ -1,49 +1,74 @@
 import React, { useState, useEffect } from "react";
 import { useMap } from "react-leaflet";
-import { useGeolocation } from "@uidotdev/usehooks";
+import { useMutation } from "@apollo/client";
 
 import { getDistanceInKm } from "../utils/distance";
+import { SEARCH_PLACE } from "../graphql/mutations";
 
-const data = require("../data/parks.json");
-
-export default function SearchBox() {
+export default function SearchBox({
+  setPosition,
+  refsPopup,
+  userLocation,
+  setSelectedPosition,
+}) {
   const parentMap = useMap();
-  const { latitude, longitude } = useGeolocation();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [callSearch, { loading, error }] = useMutation(SEARCH_PLACE, {
+    variables: { name: searchQuery },
+    onCompleted({ searchPlace }) {
+      if (searchPlace) {
+        var datas = searchPlace.map((place) => {
+          return {
+            ...place,
+            distance: getDistanceInKm(
+              userLocation.latitude,
+              userLocation.longitude,
+              place.geometry.location.lat,
+              place.geometry.location.lng
+            ),
+          };
+        });
+        datas.sort((a, b) => a.distance - b.distance);
+        setSearchResults(datas);
+      }
+    },
+  });
 
-  async function handleSearchQuery(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    if (searchQuery === "") {
-      setSearchResults([]);
-      return;
-    }
+    callSearch();
+  }
 
-    var datas = data.features
-      .filter((e) =>
-        e.properties
-          .toLocaleLowerCase()
-          .includes(searchQuery.toLocaleLowerCase())
-      )
-      .map((e) => {
-        e.distance = getDistanceInKm(
-          latitude,
-          longitude,
-          e.geometry.coordinates[0],
-          e.geometry.coordinates[1]
-        );
-        return e;
-      });
-    datas.sort((a, b) => a.distance - b.distance);
-    setSearchResults(datas);
+  function handleSelectPlace(place) {
+    const location = [
+      place.geometry.location.lat + 0.015,
+      place.geometry.location.lng,
+    ];
+    setPosition(location);
+    parentMap.flyTo(location, 14);
+    setSelectedPosition([
+      place.geometry.location.lat,
+      place.geometry.location.lng,
+    ]);
+    const marker = refsPopup[place._id];
+    if (marker) {
+      marker.openPopup();
+    }
+  }
+
+  if (loading) return "Loading...";
+  if (error) {
+    console.error(error);
+    return `Error! ${error.message}`;
   }
 
   return (
-    <div className="leaflet-top leaflet-left mt-16">
+    <div className="leaflet-top leaflet-left">
       <form
         className="flex items-center relative w-full leaflet-control leaflet-bar"
-        onSubmit={handleSearchQuery}
+        onSubmit={handleSubmit}
       >
         <label htmlFor="simple-search" className="sr-only">
           Search
@@ -75,16 +100,16 @@ export default function SearchBox() {
 
           {!!searchResults ? (
             <div className="absolute z-10 w-full border divide-y shadow max-h-72 overflow-y-auto bg-white">
-              {searchResults.map((result) => (
+              {searchResults.map((place) => (
                 <div
-                  className="flex flex-row hover:bg-indigo-50 justify-between text-base p-2"
-                  style={{ width: "100%" }}
-                  key={result.properties}
+                  className="flex flex-row hover:bg-indigo-50 justify-between text-base p-2 w-full"
+                  key={place._id}
+                  onClick={() => handleSelectPlace(place)}
                 >
-                  <div className="grow inline">{result.properties}</div>
+                  <div className="grow inline">{place.name}</div>
                   <div className="inline">
                     <span className="inline-block whitespace-nowrap rounded-[0.27rem] bg-lime-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-lime-700">
-                      {result.distance.toFixed(2)}km
+                      {place.distance.toFixed(2)}km
                     </span>
                   </div>
                 </div>
