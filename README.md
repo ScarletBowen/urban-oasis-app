@@ -8,7 +8,7 @@ GIVEN a website to find a greenspace
 
 AS a user, I want to find a park on the map
 
-WHEN I run `npm run build` I should successfully be able to see the website
+WHEN I run `npm run develop` I should successfully be able to see the website
 
 WHEN I view the file structure, I should be able to see the client and server files
 
