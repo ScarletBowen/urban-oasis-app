@@ -1,17 +1,32 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+
 
 import { GET_PLACE_DETAILS, GET_ME } from "../graphql/queries.js";
+import { ADD_COMMENT } from "../graphql/mutations.js";
 import FavoriteBtn from "../components/FavoriteBtn";
 import * as useUrlQuery from "../hooks/useQuery";
 import RatingStar from "../components/RatingStar.jsx";
+import CommentDisplay from "../components/CommentDisplay.jsx";
 
 function PlaceDetails() {
   const placeId = useUrlQuery.default().get("placeId");
+  const [commentText, setCommentText] = useState("");
 
   const getMeQuery = useQuery(GET_ME);
   const getPlaceDetailsQuery = useQuery(GET_PLACE_DETAILS, {
     variables: { id: placeId },
+  });
+
+  const [addCommentMutation, { loading, error }] = useMutation(ADD_COMMENT, {
+    onError: (error) => {
+      console.error("Error saving comment:", error);
+    },
+    onCompleted: () => {
+      console.log("Comment saved successfully");
+      setCommentText(""); // Clear the comment input field after saving
+      window.location.reload();
+    },
   });
 
   if (getPlaceDetailsQuery.loading) return "Loading...";
@@ -20,6 +35,7 @@ function PlaceDetails() {
     return `Error! ${getPlaceDetailsQuery.error.message}`;
   }
 
+  
   const place = getPlaceDetailsQuery.data.getPlaceDetails;
   const rating = Math.round(place.rating);
 
@@ -27,9 +43,28 @@ function PlaceDetails() {
   if (!getMeQuery.error) {
     user = getMeQuery.data.getUser;
   }
+ 
+  const handleCommentTextChange = (event) => {
+    setCommentText(event.target.value);
+  };
 
+  const handleSaveComment = () => {
+    if (commentText.trim() === '') {
+      // Handle empty comment text
+      return;
+    }
+
+    console.log(place._id, commentText)
+    addCommentMutation({
+      variables: {
+        placeId: place._id,
+        text: commentText,
+      },
+    });
+  };
+  
   return (
-    <div className="flex flex-col items-center bg-gray-100 h-screen pt-20">
+    <div className="flex flex-col items-center bg-white h-screen pt-20">
       <h1 className="text-4xl font-bold text-center mb-4">{place.name}</h1>
 
       <img
@@ -68,6 +103,25 @@ function PlaceDetails() {
           // Pass setIsFavorited if you want to update favorite status from inside FavoriteBtn
         />
       ) : null}
+
+      {/* comment field */}
+        <div className="flex flex-col p-3 items-center">
+          <textarea
+            value={commentText}
+            onChange={handleCommentTextChange}
+            placeholder="Add a comment..."
+            className="comment-input h-[10vh] mb-4 shadow-md rounded-md w-96 border"
+          />
+          <button onClick={handleSaveComment} className="block px-3 py-2 mt-0 text-sm font-semibold text-white bg-teal-500 rounded-lg hover:bg-teal-700 focus:bg-teal-700 focus:outline-none focus:shadow-outline-indigo">
+            Post Comment
+          </button>
+        </div>
+
+      {/* comment display */}
+      <div>
+        <CommentDisplay comments={place.comments} />
+      </div>
+      
     </div>
   );
 }

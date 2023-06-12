@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const placeSchema = require("./Place");
+const commentSchema = require("./Comment");
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 

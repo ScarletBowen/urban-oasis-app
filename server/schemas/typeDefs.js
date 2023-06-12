@@ -66,6 +66,7 @@ const typeDefs = gql`
     reference: String!
     types: [String]!
     user_ratings_total: Int!
+    comments: [Comment!]!
   }
 
   type OpeningHours {
@@ -73,12 +74,12 @@ const typeDefs = gql`
   }
 
   type Comment {
-    _id: ID!
-    commentBody: String!
-    username: String!
-    createdAt: String
-    place_id: String
-    author: [User]!
+    _id: String!
+    text: String
+    username: String
+    createdAt: String!
+    createdBy: User!
+    place_id: String!
   }
 
   input PlaceInput {
@@ -153,8 +154,8 @@ const typeDefs = gql`
     searchPlace(name: String!): [Place]
     savePlace(placeId: String!): User
     removePlace(placeId: String!): User
-    addComment(commentBody: String!, place_id: String!): User
-    removeComment(commentId: ID!): User
+    addComment(text: String!, placeId: String!): Comment!
+    removeComment(commentId: String!): User
   }
 
 `;
