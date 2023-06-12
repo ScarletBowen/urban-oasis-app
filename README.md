@@ -2,6 +2,7 @@
 City dwellers from around the country can use this app to find a greenspace of their liking to find peace and calm in their day. Our app includes being able to find different parks, according to your location. You may find what is around you and find one to your liking. The technology we used for this project includes: React for the front end development, GraphQL, node and express servers, MongoDB, and we must deploy to heroku.
 
 ***Acceptance Criteria***
+
 GIVEN a website to find a greenspace
 
 AS a user, I want to find a park on the map
