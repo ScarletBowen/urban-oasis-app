@@ -24,16 +24,7 @@ const resolvers = {
       return User.findOne({ username })
           .select('-__v -password')
     },
-    searchPlace: async (root, args, { name }) => {
-      try {
-        const places = await Place.find({
-          name: { $regex: new RegExp(name, "i") },
-        });
-        return places;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    },
+    
     findAllParks: async (root, args) => {
       try {
         const allParks = await Place.find();
