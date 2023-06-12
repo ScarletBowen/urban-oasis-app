@@ -16,7 +16,8 @@
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.12.1",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "stripe": "^12.9.0"
   },
   "scripts": {
     "start": "react-scripts start",

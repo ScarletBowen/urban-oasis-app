@@ -5,29 +5,28 @@ import { CHECKOUT } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 
 
-const stripePromise = loadStripe(process.env.STRIPE_SECRET_KEY);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 
 export default function DonationForm() {
   
     const [clientSecret] = useState('');
-    const [CHECKOUT, { data }] = useQuery(CHECKOUT);
+    const [ checkout, { data }] = useQuery(CHECKOUT);
   
     useEffect(() => {
       if (data) {
         stripePromise.then((res) => {
-          res.redirectToCheckout({ sessionId: data.checkout.session });
+          // res.redirectToCheckout({ sessionId: data.checkout.session });
         });
       }
     }, [data]);
     return (
       <>
       <h1>Payment</h1>
-      stripePromise && (
+      {/* stripePromise && (
       <Elements stripe={stripePromise} options={{ clientSecret }}>
-        <DonationForm />
       </Elements>
-      )
+      ) */}
    </>
     );
   };
