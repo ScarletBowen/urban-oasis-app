@@ -5,7 +5,9 @@ const {
 } = require("apollo-server-express");
 
 const models = require("../models");
+const User = require("../models/User");
 const Place = require("../models/Place");
+const Comment = require("../models/Comment");
 const { generateToken } = require("../utils/auth");
 
 const resolvers = {
@@ -18,12 +20,12 @@ const resolvers = {
         throw new AuthenticationError(error.message);
       }
     },
-    getOtherUser: async (parent, { username }) => {
+    getOtherUser: async (root, args) => {
+      const { username } = args;
       return User.findOne({ username })
-        .select("-__v -password")
-        .populate("friends")
-        .populate("posts");
+          .select('-__v -password')
     },
+    
     findAllParks: async (root, args) => {
       try {
         const allParks = await Place.find();
@@ -36,7 +38,8 @@ const resolvers = {
 
     getPlaceDetails: async (root, { place_id }) => {
       try {
-        const place = await Place.findOne({ _id: place_id });
+        const place = await Place.findOne({ _id: place_id })
+          .populate('comments');
         if (!place) {
           throw new Error("Place not found");
         }
@@ -58,6 +61,18 @@ const resolvers = {
         throw error;
       }
     },
+    getFriends: async (root, args, { user }) => {
+      try {
+        const friends = await User.find({ _id: { $in: user.friends } });
+        if (!friends) {
+          throw new Error("Friends not found");
+        }
+        return friends;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
   },
 
   Mutation: {
@@ -231,6 +246,43 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
+    addComment: async (parent, { text, placeId }, { user }) => {
+      try {
+        if (!user) {
+          throw new AuthenticationError("You need to be logged in");
+        }
+    
+        const place = await Place.findOne({ _id: placeId });
+
+    if (!place) {
+      console.log(place)
+      throw new Error("Place not found");
+    }
+
+    let updatedPlace;
+
+    if (place.comments && place.comments.length > 0) {
+      // Place already has comments, add the new comment
+      updatedPlace = await Place.findOneAndUpdate(
+        { _id: placeId },
+        { $push: { comments: { text } } },
+        { new: true }
+      );
+    } else {
+      // Place doesn't have comments yet, create a new comments array
+      updatedPlace = await Place.findOneAndUpdate(
+        { _id: placeId },
+        { comments: [{ text }] },
+        { new: true }
+      );
+    }
+
+      return updatedPlace;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
   },
 };
 

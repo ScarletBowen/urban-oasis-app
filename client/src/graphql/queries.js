@@ -11,6 +11,7 @@ export const GET_ME = gql`
       bio
       avatar
       gender
+      friend_id
       friendCount
       friends {
         _id
@@ -23,22 +24,15 @@ export const GET_ME = gql`
 `;
 
 export const GET_OTHER_USER = gql`
-  query getOtherUser($username: String!) {
-    user(username: $username) {
-      _id
-      username
-      bio
-      avatar
-      friendCount
-      friends {
-        _id
-        username
-        location
-        description
-        avatar
-      }
+    query getOtherUser($username: String!) {
+        getOtherUser(username: $username) {
+            _id
+            username
+            bio
+            avatar
+            friend_id
+        }
     }
-  }
 `;
 
 export const FINDALLPARKS = gql`
@@ -77,6 +71,12 @@ export const GET_PLACE_DETAILS = gql`
       user_ratings_total
       business_status
       types
+      comments {
+        _id
+        text
+        username
+        createdAt
+      }
     }
   }
 `;
@@ -91,6 +91,24 @@ export const GET_FAVORITE_PLACES = gql`
       user_ratings_total
       business_status
       types
+      comments {
+        _id
+        text
+        username
+        createdAt
+      }
+    }
+  }
+`;
+
+export const GET_FRIENDS = gql`
+  query GetFriends {
+    getFriends {
+      _id
+      username
+      avatar
+      bio
+      friend_id
     }
   }
 `;

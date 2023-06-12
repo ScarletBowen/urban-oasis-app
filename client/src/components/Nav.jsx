@@ -10,16 +10,16 @@ export default function Nav() {
 
   return (
     <div className="fixed top-0 w-full" style={{ zIndex: 2000 }}>
-      <header className="bg-white shadow-sm">
+      <header className="bg-white">
         <nav className="container mx-auto px-6 py-3">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center">
             <div className="flex justify-between items-center">
               <div>
                 <Link
                   to="/"
-                  className="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
+                  className="text-2xl font-medium text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
                 >
-                  Urban Oasis Locator
+                  Urban Oasis Locator 🌱
                 </Link>
               </div>
 
@@ -48,14 +48,16 @@ export default function Nav() {
               {!!token ? (
                 <>
                   <Link
-                    to="/myprofile"
-                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
+                    to="/profile"
+                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500
+                    transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
                   >
                     My Profile
                   </Link>
                   <Link
                     to="/favoriteplaces"
-                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
+                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500
+                    transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
                   >
                     My Favorite Places
                   </Link>
@@ -65,13 +67,16 @@ export default function Nav() {
               {!!!token ? (
                 <Link
                   to="/signin"
-                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo
+                  transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300
+                  animate-bounce"
                 >
                   Sign In
                 </Link>
               ) : (
                 <button
-                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+                  className="block px-4 py-2 mt-0 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo
+                  transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
                   onClick={(e) => {
                     e.preventDefault();
                     Auth.logout();
@@ -91,7 +96,7 @@ export default function Nav() {
           <>
             <Link
               to="/signin"
-              className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+              className="block px-4 py-2 mt-0 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
             >
               Sign In
             </Link>
@@ -99,7 +104,7 @@ export default function Nav() {
             {!!token ? (
               <>
                 <Link
-                  to="/myprofile"
+                  to="/profile"
                   className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
                 >
                   My Profile

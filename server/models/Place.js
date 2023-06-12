@@ -64,6 +64,19 @@ const schema = new Schema({
   user_ratings_total: {
     type: Number,
   },
+  comments: [
+    {
+      text: String,
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+      author: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    },
+  ],
 });
 
 const Place = model("Place", schema);

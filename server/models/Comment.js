@@ -1,20 +1,26 @@
+const mongoose = require("mongoose");
 const { Schema } = require('mongoose');
-const moment = require('moment');
+
 
 const commentSchema = new Schema(
   {
-    commentBody: {
+    text: {
       type: String,
       required: true
     },
     username: {
       type: String,
+      ref: 'User',
+      required: true
+    },
+    place: {
+      type: String,
+      ref: 'Place',
       required: true
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => moment(timestamp).fromNow()
     },
     author: [
       {
@@ -25,11 +31,8 @@ const commentSchema = new Schema(
       }
     ]
   },
-  {
-    toJSON: {
-      getters: true
-    }
-  }
 );
 
-module.exports = commentSchema;
+const Comment = mongoose.model("Comment", commentSchema);
+
+module.exports = Comment;

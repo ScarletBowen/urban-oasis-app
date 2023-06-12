@@ -1,7 +1,7 @@
 import Error from "./Error";
 import FavoritePlaces from "./FavoritePlaces";
 import Home from "./Home";
-import MyProfile from "./MyProfile";
+import Profile from "./Profile";
 import PlaceDetails from "./PlaceDetails";
 import Signin from "./Signin";
 import Signup from "./Signup";
@@ -11,7 +11,7 @@ export {
   Error,
   Home,
   FavoritePlaces,
-  MyProfile,
+  Profile,
   PlaceDetails,
   Signin,
   Signup,

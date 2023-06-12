@@ -6,19 +6,20 @@ import RatingStar from "./RatingStar";
 export default function PlaceCard({ place }) {
   const rating = Math.round(place.rating);
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg
+    transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
+
+      <Link
+          to={`/placedetails?placeId=${place._id}`}>
       <img
         className="w-full"
         src="https://goparkplay.com/wp-content/uploads/2021/05/batch_IMG_6959-800x600.jpg"
         alt="Sunset in the mountains"
       />
       <div className="px-6 pt-4">
-        <Link
-          to={`/placedetails?placeId=${place._id}`}
-          className="font-bold text-xl mb-2"
-        >
+        <p className="font-bold text-xl mb-2">
           {place.name}
-        </Link>
+        </p>
         <div className="flex items-center">
           <RatingStar rating={rating} />
           <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
@@ -52,6 +53,7 @@ export default function PlaceCard({ place }) {
           </span>
         ))}
       </div>
+      </Link>
     </div>
   );
 }

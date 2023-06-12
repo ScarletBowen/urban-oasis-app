@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const placeSchema = require("./Place");
+const commentSchema = require("./Comment");
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 
@@ -34,10 +35,13 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
   },
+  friend_id: {
+    type: String,
+    required: true,
+  },
   friends: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: String
     },
   ],
   savedPlaces: [{ type: String }],
