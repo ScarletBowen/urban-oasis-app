@@ -14,21 +14,14 @@ const Footer = () => {
     marginBottom: '10px',
   };
 
-  const linkStyle = {
-    color: '#666',
-    textDecoration: 'none',
-    fontWeight: 'bold',
-  };
-
-  const linkHoverStyle = {
-    color: '#000',
-  };
-
   return (
     <footer style={footerStyle}>
       <div>
         <h1 style={headingStyle}>Made With 💚 By Team Wellbeing</h1>
-        <Link to="https://github.com/ScarletBowen/urban-oasis-app" style={linkStyle} activeStyle={linkHoverStyle}>
+        <Link to="https://github.com/ScarletBowen/urban-oasis-app" 
+        className="px-6 py-2 text-bg text-gray-700 dark:text-gray-200 hover:text-indigo-500
+        transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 first-letter
+        ">
           Our GitHub Repo
         </Link>
       </div>
