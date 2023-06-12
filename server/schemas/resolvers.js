@@ -59,6 +59,18 @@ const resolvers = {
         throw error;
       }
     },
+    getFriends: async (root, args, { user }) => {
+      try {
+        const friends = await User.find({ _id: { $in: user.friends } });
+        if (!friends) {
+          throw new Error("Friends not found");
+        }
+        return friends;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
   },
 
   Mutation: {

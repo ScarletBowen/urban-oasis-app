@@ -11,6 +11,7 @@ export const GET_ME = gql`
       bio
       avatar
       gender
+      friend_id
       friendCount
       friends {
         _id
@@ -29,6 +30,7 @@ export const GET_OTHER_USER = gql`
             username
             bio
             avatar
+            friend_id
         }
     }
 `;
@@ -83,6 +85,18 @@ export const GET_FAVORITE_PLACES = gql`
       user_ratings_total
       business_status
       types
+    }
+  }
+`;
+
+export const GET_FRIENDS = gql`
+  query GetFriends {
+    getFriends {
+      _id
+      username
+      avatar
+      bio
+      friend_id
     }
   }
 `;

@@ -11,6 +11,7 @@ const typeDefs = gql`
     gender: String
     avatar: String
     password: String!
+    friend_id: String!
     friendCount: Int
     friends: [User]
     savedPlaces: [String!]
@@ -135,6 +136,7 @@ const typeDefs = gql`
     findAllParks: [Place]
     getPlaceDetails(place_id: String!): Place
     getFavoritePlaces: [Place]
+    getFriends: [User]
   }
 
 

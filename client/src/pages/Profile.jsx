@@ -1,67 +1,58 @@
 // import dependencies
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/client";
-import { Navigate, Link, useParams } from "react-router-dom";
-import useToken from "../hooks/useToken";
-import Auth from "../utils/auth";
+import React from "react";
+import { useQuery } from "@apollo/client";
+import profileBackground from "../assets/profileBackground.jpg";
+
 
 // import queries and mutations
-import { GET_ME, GET_OTHER_USER } from "../graphql/queries";
-import { ADD_FRIEND, REMOVE_FRIEND } from "../graphql/mutations";
+import { GET_ME } from "../graphql/queries";
 import FriendsList from "../components/FriendsList";
 
 
 const Profile = () => {
-  const [me, setMe] = useState(false);
-  const [token, setToken] = useToken();
-
   // get logged-in user data
   const getMeQuery = useQuery(GET_ME);
 
+  
   if (getMeQuery.loading) return "Loading...";
   if (getMeQuery.error) {
+    console.log("error")
+    console.log(getMeQuery.error.message)
     console.error(getMeQuery.error);
     return `Error! ${getMeQuery.error.message}`;
   }
 
   const user = getMeQuery.data.getUser;
+
+  console.log(user);
+ 
+
   
-
-  //add friend
-  // const [addFriend] = useMutation(ADD_FRIEND);
-  // const [following, setFollowing] = useState(false);
-  // const handleAddFriend = async () => {
-  //   try {
-  //     await addFriend({
-  //       variables: { id: user._id }
-  //     });
-  //     setFollowing(true);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-
-  //remove friend
-  // const [removeFriend] = useMutation(REMOVE_FRIEND);
-  // const handleRemoveFriend = async () => {
-  //   try {
-  //     await removeFriend({
-  //       variables: { id: user._id }
-  //     });
-  //     setFollowing(false);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
 
   // if user is logged in, render Profile page
   return (
-    <div className="mt-16 w-full p-3 flex flex-col items-center">
-      <h1 className="text-4xl font-bold text-center mb-4">Profile</h1>
+    <div
+        style={{
+          backgroundImage: `url(${profileBackground})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          padding: "30px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }} 
+        
+        className="mt-20 w-full p-3 flex flex-col items-center">
 
-      <img src={user.avatar} alt="placeholder" className="h-60" />
+      <div className="p-3 flex flex-col items-center border bg-white rounded">
 
-      <div className="bg-white p-3 shadow-sm rounded-sm">
+      
+      <h1 className="text-4xl tracking-wide text-center font-light mb-4">My Profile</h1>
+
+      <img src={user.avatar} alt="placeholder" className="w-50 h-60 drop-shadow-lg m-2 rounded-full" />
+
+      <div className="bg-white p-3 m-3 shadow-lg rounded-sm bg-emerald-50">
         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
           <span className="text-green-500">
             <svg
@@ -84,10 +75,8 @@ const Profile = () => {
 
 
         <div className="text-gray-700">
-          <div className="grid md:grid-cols-2 text-sm">
-          {/* if logged in */}
-          {!!token ? (
-            <>
+          <div className="grid md:grid-cols-1 text-sm">
+          
               <div className="grid grid-cols-2">
                 <div className="px-4 py-2 font-semibold">Username</div>
                 <div className="px-4 py-2">{user.username}</div>
@@ -99,7 +88,7 @@ const Profile = () => {
               </div>
 
               <div className="grid grid-cols-2">
-                <div className="px-4 py-2 font-semibold">Email.</div>
+                <div className="px-4 py-2 font-semibold">Email</div>
                 <div className="px-4 py-2">
                   <a className="text-blue-800" href={`mailto:${user.email}`}>
                     {user.email}
@@ -116,33 +105,15 @@ const Profile = () => {
                 <div className="px-4 py-2 font-semibold">Gender</div>
                 <div className="px-4 py-2">{user.gender}</div>
               </div>
-            </>
-          ) : null}
-
-          {/* if not logged in */}
-          {!!!token ? (
-            <>
-
-              <div className="grid grid-cols-2">
-                <div className="px-4 py-2 font-semibold">Username</div>
-                <div className="px-4 py-2">{user.username}</div>
-              </div>
-
-              <div className="grid grid-cols-2">
-                <div className="px-4 py-2 font-semibold">Bio</div>
-                <div className="px-4 py-2">{user.bio}</div>
-              </div>
-
-            </>
-            ) : null}
-
+      
           </div>
         </div>
 
-
+      </div>
+      
       </div>
 
-      <FriendsList friends={user.friends} />
+      {/* <FriendsList friends={user.friends} /> */}
     </div>
     
   );

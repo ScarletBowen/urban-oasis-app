@@ -28,10 +28,8 @@ const UserProfile = () => {
     return `Error! ${error.message}`;
   }
 
-  var user;
-  if (!getMeQuery.error) {
-    user = getMeQuery.data.getUser;
-  }
+  const user = getMeQuery.data.getUser;
+
   const otherUser = getOtherUserQuery.data.getOtherUser;
   console.log(otherUser);
   console.log(user);
@@ -110,12 +108,12 @@ const UserProfile = () => {
       </div>
     </div>
   </div>
-  {user ? (
+  {/* {user ? (
         <FriendBtn
-          friendID={otherUser._id}
-          isFriend={user.savedPlaces.includes(otherUser._id)}
+          friendId={otherUser.friend_id}
+          isFriend={user.friends.includes(otherUser.friend_id)}
         />
-      ) : null}
+      ) : null} */}
 </div>
     
   );

@@ -49,13 +49,15 @@ export default function Nav() {
                 <>
                   <Link
                     to="/profile"
-                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
+                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500
+                    transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
                   >
                     My Profile
                   </Link>
                   <Link
                     to="/favoriteplaces"
-                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500"
+                    className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500
+                    transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
                   >
                     My Favorite Places
                   </Link>
@@ -65,13 +67,16 @@ export default function Nav() {
               {!!!token ? (
                 <Link
                   to="/signin"
-                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo
+                  transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300
+                  animate-bounce"
                 >
                   Sign In
                 </Link>
               ) : (
                 <button
-                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo"
+                  className="block px-4 py-2 mt-2 text-sm font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo
+                  transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
                   onClick={(e) => {
                     e.preventDefault();
                     Auth.logout();

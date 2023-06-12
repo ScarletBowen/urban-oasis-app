@@ -34,10 +34,13 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
   },
+  friend_id: {
+    type: String,
+    required: true,
+  },
   friends: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: String
     },
   ],
   savedPlaces: [{ type: String }],
