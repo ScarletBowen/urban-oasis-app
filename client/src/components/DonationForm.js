@@ -11,7 +11,7 @@ const stripePromise = loadStripe(process.env.STRIPE_SECRET_KEY);
 export default function DonationForm() {
   
     const [clientSecret] = useState('');
-    const [getCheckout, { data }] = useQuery(CHECKOUT);
+    const [CHECKOUT, { data }] = useQuery(CHECKOUT);
   
     useEffect(() => {
       if (data) {
