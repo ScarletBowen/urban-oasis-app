@@ -27,9 +27,9 @@ const Footer = () => {
   return (
     <footer style={footerStyle}>
       <div>
-        <h1 style={headingStyle}>Support Team Oasis!</h1>
-        <Link to="https://github.com/ScarletBowen/urban-oasis-app/pull/36" style={linkStyle} activeStyle={linkHoverStyle}>
-          Make a Donation
+        <h1 style={headingStyle}>Made With 💚 By Team Wellbeing</h1>
+        <Link to="https://github.com/ScarletBowen/urban-oasis-app" style={linkStyle} activeStyle={linkHoverStyle}>
+          Our GitHub Repo
         </Link>
       </div>
     </footer>

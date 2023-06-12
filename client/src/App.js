@@ -70,7 +70,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Nav />
-        <MyProfile />
+        <Profile />
         <Footer />
       </>
     ),
