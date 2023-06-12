@@ -1,6 +1,7 @@
 import React from "react";
 import Mapbox from "../components/Mapbox";
 import BackgroundImage from "../assets/greenbg.jpg";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
         <div></div>
         <div className="leaflet-container">
           <Mapbox />
+          <Footer />
         </div>
       </div>
     </div>

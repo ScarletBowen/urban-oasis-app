@@ -20,6 +20,7 @@ import {
 } from "./pages";
 
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <Home />
+        <Footer />
       </>
     ),
     errorElement: <Error />,
