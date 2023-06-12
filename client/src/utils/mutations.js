@@ -71,3 +71,11 @@ export const REMOVE_PLACE_MUTATION = gql`
     }
   }
 `;
+
+export const CHECKOUT = gql`
+  mutation getCheckout {
+    checkout {
+      session
+    }
+  }
+`;

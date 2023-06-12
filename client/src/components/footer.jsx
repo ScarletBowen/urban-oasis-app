@@ -28,7 +28,7 @@ const Footer = () => {
     <footer style={footerStyle}>
       <div>
         <h1 style={headingStyle}>Support Team Oasis!</h1>
-        <Link to="/donation-page" style={linkStyle} activeStyle={linkHoverStyle}>
+        <Link to="/DonationPage" style={linkStyle} activeStyle={linkHoverStyle}>
           Make a Donation
         </Link>
       </div>

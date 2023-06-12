@@ -72,16 +72,6 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "aboutus",
-    element: (
-      <>
-        <Nav />
-        <AboutUs />
-        <Footer />
-      </>
-    ),
-  },
-  {
     path: "myprofile",
     element: (
       <>
