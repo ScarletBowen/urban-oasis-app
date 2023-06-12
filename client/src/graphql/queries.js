@@ -11,14 +11,6 @@ export const GET_ME = gql`
       bio
       avatar
       gender
-      friend_id
-      friendCount
-      friends {
-        _id
-        username
-        bio
-        avatar
-      }
     }
   }
 `;
@@ -30,7 +22,6 @@ export const GET_OTHER_USER = gql`
             username
             bio
             avatar
-            friend_id
         }
     }
 `;

@@ -51,6 +51,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <Signin />
+        <Footer />
       </>
     ),
   },
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <Signup />
+        <Footer />
       </>
     ),
   },
@@ -69,6 +71,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <Profile />
+        <Footer />
       </>
     ),
   },
@@ -78,6 +81,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <UserProfile />
+        <Footer />
       </>
     ),
   },
@@ -87,6 +91,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <PlaceDetails />
+        <Footer />
       </>
     ),
   },
@@ -96,6 +101,7 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <FavoritePlaces />
+        <Footer />
       </>
     ),
   },
