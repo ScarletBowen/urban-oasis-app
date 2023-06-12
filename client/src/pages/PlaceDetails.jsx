@@ -8,6 +8,7 @@ import FavoriteBtn from "../components/FavoriteBtn";
 import * as useUrlQuery from "../hooks/useQuery";
 import RatingStar from "../components/RatingStar.jsx";
 import CommentDisplay from "../components/CommentDisplay.jsx";
+import Footer from "../components/Footer.jsx";
 
 function PlaceDetails() {
   const placeId = useUrlQuery.default().get("placeId");
@@ -64,7 +65,7 @@ function PlaceDetails() {
   };
   
   return (
-    <div className="flex flex-col items-center bg-white h-screen pt-20">
+    <div className="flex flex-col items-center bg-white pt-20">
       <h1 className="text-4xl font-bold text-center mb-4">{place.name}</h1>
 
       <img
@@ -121,8 +122,9 @@ function PlaceDetails() {
       <div>
         <CommentDisplay comments={place.comments} />
       </div>
-      
+     
     </div>
+    
   );
 }
 

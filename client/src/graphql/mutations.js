@@ -29,30 +29,29 @@ export const REGISTER_USER = gql`
       token
       user {
         user_id
-        friend_id
         username
       }
     }
   }
 `;
 
-export const ADD_FRIEND = gql`
-  mutation addFriend($friendId: String!) {
-    addFriend(friendId: $friendId) {
-      friend_id
-      username
-    }
-  }
-`;
+// export const ADD_FRIEND = gql`
+//   mutation addFriend($friendId: String!) {
+//     addFriend(friendId: $friendId) {
+//       friend_id
+//       username
+//     }
+//   }
+// `;
 
-export const REMOVE_FRIEND = gql`
-  mutation removeFriend($friendId: String!) {
-    removeFriend(friendId: $friendId) {
-      friend_id
-      username
-    }
-  }
-`;
+// export const REMOVE_FRIEND = gql`
+//   mutation removeFriend($friendId: String!) {
+//     removeFriend(friendId: $friendId) {
+//       friend_id
+//       username
+//     }
+//   }
+// `;
 
 export const SAVE_PLACE_MUTATION = gql`
   mutation SavePlace($placeId: String!) {
