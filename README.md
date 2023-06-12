@@ -4,13 +4,17 @@ The purpose of this project was to create a MERN + GraphQL application for city 
 
 <p align="center">:sparkles: <a href="">Visit deployed application here</a> :sparkles:</p>
 
-<img width="1237" alt="image" src="https://github.com/ScarletBowen/urban-oasis-app/assets/120343929/2c0f3ef8-618b-41c1-8b8d-f7ecf970aff6">
+![readme](https://github.com/ScarletBowen/urban-oasis-app/assets/109751916/877d3abb-6b54-4674-8c2f-cdcf95d6b992)
+
 
 ## Table of Contents
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
+- [Urban-Oasis](#urban-oasis)
+  - [Table of Contents](#table-of-contents)
+  - [Technologies Used](#technologies-used)
+  - [Installation](#installation)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
+  - [Questions](#questions)
 
 
 ## Technologies Used

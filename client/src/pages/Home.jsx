@@ -20,12 +20,13 @@ const Home = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          height: "75vh",
+          overflow: 'auto'
         }}
       >
         <div></div>
         <div className="leaflet-container">
           <Mapbox />
-          <Footer />
         </div>
       </div>
     </div>
