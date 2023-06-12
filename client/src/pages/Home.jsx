@@ -1,6 +1,7 @@
 import React from "react";
 import Mapbox from "../components/Mapbox";
 import BackgroundImage from "../assets/greenbg.jpg";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -19,6 +20,8 @@ const Home = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          height: "75vh",
+          overflow: 'auto'
         }}
       >
         <div></div>

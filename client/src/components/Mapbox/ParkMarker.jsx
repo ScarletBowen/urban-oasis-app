@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import treeIconFile from "./tree.png";
 import RatingStar from "../RatingStar";
+import "./index.css"
 
 // Define your custom icon
 const treeIcon = new Icon({
@@ -21,28 +22,28 @@ export default function ParkMarker({ place, applyRef }) {
       icon={treeIcon}
       ref={applyRef}
     >
-      <Popup>
-        <div className="max-w-sm rounded overflow-y-auto">
+      <Popup className="custom-popup">
+        <div className="max-w-xs rounded overflow-y-auto">
           <img
-            className="w-full"
-            src="https://goparkplay.com/wp-content/uploads/2021/05/batch_IMG_6959-800x600.jpg"
-            alt="Sunset in the mountains"
+        className="w-2/3"
+        src="https://goparkplay.com/wp-content/uploads/2021/05/batch_IMG_6959-800x600.jpg"
+        alt="Sunset in the mountains"
           />
-          <div className="px-6 pt-4">
+          <div className="max-w-xs rounded overflow-y-auto px-6 pt-4">
             <Link
               to={`/placedetails?placeId=${place._id}`}
-              className="font-bold text-xl mb-2"
+              className="font-bold text-l mb-2"
             >
               {place.name}
             </Link>
-            <div className="flex items-center">
+            <div className="max-w-xs rounded overflow-y-auto flex items-center">
               <RatingStar rating={rating} />
               <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
               <span className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
                 {place.user_ratings_total} ratings
               </span>
             </div>
-            <div className="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold uppercase">
+            <div className="max-w-xs rounded overflow-y-auto text-sm leading-normal mt-0 mb-2 text-gray-400 font-uppercase">
               <svg
                 version="1.1"
                 className="w-5 h-5 text-gray-400 inline-block"
@@ -61,8 +62,8 @@ export default function ParkMarker({ place, applyRef }) {
               {place.formatted_address}
             </div>
           </div>
-          <div className="px-6 pt-1 pb-2">
-            <span className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          <div className="max-w-xs rounded overflow-y-auto px-6 pt-1 pb-2">
+            <span className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm text-gray-700 mr-2 mb-2">
               #park
             </span>
           </div>
