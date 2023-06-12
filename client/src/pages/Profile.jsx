@@ -2,6 +2,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import profileBackground from "../assets/profileBackground.jpg";
+import userPlaceholder from "../assets/userplaceholder.png";
 
 
 // import queries and mutations
@@ -50,7 +51,7 @@ const Profile = () => {
       
       <h1 className="text-4xl tracking-wide text-center font-light mb-4">My Profile</h1>
 
-      <img src={user.avatar} alt="[Placeholder]" className="w-50 h-60 drop-shadow-lg m-2 rounded-full" />
+      <img src={userPlaceholder} alt="[Placeholder]" className="w-50 h-60 drop-shadow-lg m-2 rounded" />
 
       <div className="bg-white p-3 m-3 shadow-lg rounded-sm bg-emerald-50">
         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
