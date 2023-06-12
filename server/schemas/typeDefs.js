@@ -71,6 +71,20 @@ const typeDefs = gql`
     open_now: Boolean!
   }
 
+  type Query {
+    getUser: User
+  }
+
+  type Mutation {
+    register(
+      username: String!
+      fullname: String!
+      email: String!
+      password: String!
+    ): AuthPayload!
+    login(username: String!, password: String!): AuthPayload!
+  }
+
   type Comment {
     _id: ID!
     commentBody: String!
@@ -132,7 +146,6 @@ const typeDefs = gql`
   type Query {
     getUser: User
     getOtherUser(username: String!): User
-    searchPlace(name: String!): [Place]
     findAllParks: [Place]
     getPlaceDetails(place_id: String!): Place
     getFavoritePlaces: [Place]
@@ -149,6 +162,10 @@ const typeDefs = gql`
     login(username: String!, password: String!): AuthPayload!
     addFriend(friendId: String!): User
     removeFriend(friendId: String!): User
+  }
+
+  type Mutation {
+    searchPlace(name: String!): [Place]
     savePlace(placeId: String!): User
     removePlace(placeId: String!): User
     addComment(commentBody: String!, place_id: String!): User

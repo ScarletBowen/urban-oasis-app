@@ -228,6 +228,19 @@ const resolvers = {
         throw error;
       }
     },
+    searchPlace: async (root, { name }, context) => {
+      try {
+        if (name === "") {
+          return [];
+        }
+        const places = await Place.find({
+          name: { $regex: new RegExp(name, "i") },
+        });
+        return places;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
   },
 };
 
