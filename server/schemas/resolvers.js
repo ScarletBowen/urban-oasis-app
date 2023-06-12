@@ -20,19 +20,9 @@ const resolvers = {
     },
     getOtherUser: async (parent, { username }) => {
       return User.findOne({ username })
-          .select('-__v -password')
-          .populate('friends')
-          .populate('posts')
-    },
-    searchPlace: async (root, args, { name }) => {
-      try {
-        const places = await Place.find({
-          name: { $regex: new RegExp(name, "i") },
-        });
-        return places;
-      } catch (error) {
-        throw new Error(error.message);
-      }
+        .select("-__v -password")
+        .populate("friends")
+        .populate("posts");
     },
     findAllParks: async (root, args) => {
       try {
@@ -226,6 +216,19 @@ const resolvers = {
       } catch (error) {
         console.error(error);
         throw error;
+      }
+    },
+    searchPlace: async (root, { name }, context) => {
+      try {
+        if (name === "") {
+          return [];
+        }
+        const places = await Place.find({
+          name: { $regex: new RegExp(name, "i") },
+        });
+        return places;
+      } catch (error) {
+        throw new Error(error.message);
       }
     },
   },
