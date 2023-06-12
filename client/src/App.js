@@ -14,7 +14,6 @@ import {
   Home,
   Signin,
   Signup,
-  AboutUs,
   MyProfile,
   UserProfile,
   PlaceDetails,

@@ -1,4 +1,3 @@
-import AboutUs from "./AboutUs";
 import Error from "./Error";
 import FavoritePlaces from "./FavoritePlaces";
 import Home from "./Home";
@@ -12,7 +11,6 @@ import DonationPage from "./DonationPage";
 export {
   Error,
   Home,
-  AboutUs,
   FavoritePlaces,
   MyProfile,
   PlaceDetails,

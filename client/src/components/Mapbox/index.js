@@ -1,25 +1,12 @@
 import React from "react";
-
-import { Icon } from "leaflet";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  ZoomControl,
-} from "react-leaflet";
+import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import { useQuery } from "@apollo/client";
+import './index.css';
 
 import SearchBox from "../SearchBox.jsx";
+import ParkMarker from "./ParkMarker.jsx";
 
 import { FINDALLPARKS } from "../../graphql/queries.js";
-import treeIconFile from "./tree.png";
-
-// Define your custom icon
-const treeIcon = new Icon({
-  iconUrl: treeIconFile, //  tree icon file
-  iconSize: [25, 25], // size of the icon
-});
 
 export default function Mapbox() {
   const position = [33.6725744, -117.7432627]; // lat/lng for Irvine, CA
@@ -45,16 +32,7 @@ export default function Mapbox() {
         <SearchBox />
 
         {data?.findAllParks.map((place, index) => (
-          <Marker
-            key={index}
-            position={[
-              place.geometry.location.lat,
-              place.geometry.location.lng,
-            ]}
-            icon={treeIcon}
-          >
-            <Popup>{place.name}</Popup>
-          </Marker>
+          <ParkMarker key={index} place={place} />
         ))}
       </MapContainer>
     </div>
