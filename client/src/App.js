@@ -9,7 +9,6 @@ import {
 
 // import pages and components
 import {
-  DonationPage,
   Error,
   Home,
   Signin,
@@ -22,12 +21,7 @@ import {
 } from "./pages";
 
 import Nav from "./components/Nav";
-import DonationForm from "./components/DonationForm";
 import Footer from "./components/footer";
-// import { loadStripe } from "@stripe/stripe-js";
-// import { Elements } from "@stripe/react-stripe-js";
-// import DonationForm from "./components/donationForm";
-// import { StripeProvider } from "./utils/StripeProvider";
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
@@ -118,16 +112,6 @@ const router = createBrowserRouter([
       <>
         <Nav />
         <FavoritePlaces />
-        <Footer />
-      </>
-    ),
-  },
-  {
-    path: "donationpage",
-    element: (
-      <>
-        <Nav />
-        <DonationPage />
         <Footer />
       </>
     ),
