@@ -7,19 +7,12 @@ import * as useUrlQuery from "../hooks/useQuery";
 import RatingStar from "../components/RatingStar.jsx";
 
 function PlaceDetails() {
-  const query = useUrlQuery.default();
-  const placeId = query.get("placeId");
+  const placeId = useUrlQuery.default().get("placeId");
 
   const getMeQuery = useQuery(GET_ME);
   const getPlaceDetailsQuery = useQuery(GET_PLACE_DETAILS, {
     variables: { id: placeId },
   });
-
-  if (getMeQuery.loading) return "Loading...";
-  if (getMeQuery.error) {
-    console.error(getMeQuery.error);
-    return `Error! ${getMeQuery.error.message}`;
-  }
 
   if (getPlaceDetailsQuery.loading) return "Loading...";
   if (getPlaceDetailsQuery.error) {
@@ -28,8 +21,12 @@ function PlaceDetails() {
   }
 
   const place = getPlaceDetailsQuery.data.getPlaceDetails;
-  const user = getMeQuery.data.getUser;
   const rating = Math.round(place.rating);
+
+  var user;
+  if (!getMeQuery.error) {
+    user = getMeQuery.data.getUser;
+  }
 
   return (
     <div className="flex flex-col items-center bg-gray-100 h-screen pt-20">
@@ -56,18 +53,21 @@ function PlaceDetails() {
       <div className="px-6 pt-1 pb-2">
         {place.types?.map((type) => (
           <span
-           key = {type}
-           className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+            key={type}
+            className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+          >
             #{type}
           </span>
         ))}
       </div>
 
-      <FavoriteBtn
-        placeId={place._id}
-        isFavorited={user.savedPlaces.includes(place._id)}
-        // Pass setIsFavorited if you want to update favorite status from inside FavoriteBtn
-      />
+      {user ? (
+        <FavoriteBtn
+          placeId={place._id}
+          isFavorited={user.savedPlaces.includes(place._id)}
+          // Pass setIsFavorited if you want to update favorite status from inside FavoriteBtn
+        />
+      ) : null}
     </div>
   );
 }

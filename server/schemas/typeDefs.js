@@ -74,7 +74,7 @@ const typeDefs = gql`
   type Query {
     getUser: User
   }
-  
+
   type Mutation {
     register(
       username: String!
@@ -149,7 +149,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    searchPlace(name: String!): [Place]
     findAllParks: [Place]
     getPlaceDetails(place_id: String!): Place
     getFavoritePlaces: [Place]
@@ -171,6 +170,7 @@ const typeDefs = gql`
   }
   
   type Mutation {
+    searchPlace(name: String!): [Place]
     savePlace(placeId: String!): User
     removePlace(placeId: String!): User
   }

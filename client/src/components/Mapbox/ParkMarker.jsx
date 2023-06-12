@@ -12,16 +12,17 @@ const treeIcon = new Icon({
   iconSize: [25, 25], // size of the icon
 });
 
-export default function ParkMarker({ place }) {
+export default function ParkMarker({ place, applyRef }) {
   const rating = Math.round(place.rating);
 
   return (
     <Marker
       position={[place.geometry.location.lat, place.geometry.location.lng]}
       icon={treeIcon}
+      ref={applyRef}
     >
       <Popup>
-        <div className="max-w-sm rounded overflow-hidden">
+        <div className="max-w-sm rounded overflow-y-auto">
           <img
             className="w-full"
             src="https://goparkplay.com/wp-content/uploads/2021/05/batch_IMG_6959-800x600.jpg"
