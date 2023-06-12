@@ -19,7 +19,6 @@ async function createRandomUser() {
     password: await bcrypt.hash("123", 10),
     bio: faker.person.bio(),
     gender: faker.person.sex(),
-    friend_id: Math.random().toString(36),
     friends: [],
     savedPlaces: [],
   };

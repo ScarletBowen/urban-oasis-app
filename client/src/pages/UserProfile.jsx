@@ -7,9 +7,9 @@ import profileBackground from "../assets/profileBackground.jpg";
 
 // import queries and mutations
 import { GET_ME, GET_OTHER_USER } from "../graphql/queries";
-import { ADD_FRIEND, REMOVE_FRIEND } from "../graphql/mutations";
 
-import FriendBtn from "../components/FriendBtn";
+
+
 
 
 const UserProfile = () => {

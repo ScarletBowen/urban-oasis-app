@@ -35,10 +35,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
   },
-  friend_id: {
-    type: String,
-    required: true,
-  },
   friends: [
     {
       type: String
@@ -60,9 +56,9 @@ const userSchema = new mongoose.Schema({
 //   return await bcrypt.compare(password, this.password);
 // };
 
-userSchema.virtual('friendCount').get(function () {
-	return this.friends.length;
-});
+// userSchema.virtual('friendCount').get(function () {
+// 	return this.friends.length;
+// });
 
 userSchema.virtual('favoriteCount').get(function () {
 	return this.savedPlaces.length;
