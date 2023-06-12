@@ -35,31 +35,19 @@ export const REGISTER_USER = gql`
 `;
 
 export const ADD_FRIEND = gql`
-  mutation addFriend($friendId: ID!) {
+  mutation addFriend($friendId: String!) {
     addFriend(friendId: $friendId) {
-      user_id
+      _id
       username
-      friendCount
-      friends {
-        user_id
-        username
-        avatar
-      }
     }
   }
 `;
 
 export const REMOVE_FRIEND = gql`
-  mutation removeFriend($id: ID!) {
-    removeFriend(friendId: $id) {
+  mutation removeFriend($id: String!) {
+    removeFriend(friendId: $friendId) {
       _id
       username
-      friendCount
-      friends {
-        user_id
-        username
-        avatar
-      }
     }
   }
 `;

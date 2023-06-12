@@ -9,7 +9,7 @@ import {
 export default function FavoriteBtn({ placeId, isFavorited }) {
   const [savePlace] = useMutation(SAVE_PLACE_MUTATION);
   const [removePlace] = useMutation(REMOVE_PLACE_MUTATION);
-
+  console.log(placeId)
   return (
     <div className="flex space-x-4">
       {!isFavorited ? (
@@ -17,7 +17,7 @@ export default function FavoriteBtn({ placeId, isFavorited }) {
           className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-white transition-colors"
           onClick={() => {
             savePlace({ variables: { placeId } });
-            window.location.reload();
+            // window.location.reload();
           }}
         >
           Add to Favorites
@@ -27,7 +27,7 @@ export default function FavoriteBtn({ placeId, isFavorited }) {
           className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-white transition-colors"
           onClick={() => {
             removePlace({ variables: { placeId } });
-            window.location.reload();
+            // window.location.reload();
           }}
         >
           Remove from Favorites
