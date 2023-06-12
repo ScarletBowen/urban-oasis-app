@@ -22,6 +22,8 @@ async function createRandomUser() {
   };
 }
 
+
+
 async function seedDB() {
   // Connect to the MongoDB database
   try {

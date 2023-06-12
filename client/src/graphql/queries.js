@@ -24,8 +24,8 @@ export const GET_ME = gql`
 
 export const GET_OTHER_USER = gql`
     query getOtherUser($username: String!) {
-        user(username: $username) {
-            _id
+        getOtherUser(username: $username) {
+            user_id
             username
             bio
             avatar

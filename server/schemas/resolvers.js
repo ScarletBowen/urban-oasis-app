@@ -5,6 +5,7 @@ const {
 } = require("apollo-server-express");
 
 const models = require("../models");
+const User = require("../models/User");
 const Place = require("../models/Place");
 const { generateToken } = require("../utils/auth");
 
@@ -18,11 +19,10 @@ const resolvers = {
         throw new AuthenticationError(error.message);
       }
     },
-    getOtherUser: async (parent, { username }) => {
+    getOtherUser: async (root, args) => {
+      const { username } = args;
       return User.findOne({ username })
           .select('-__v -password')
-          .populate('friends')
-          .populate('posts')
     },
     searchPlace: async (root, args, { name }) => {
       try {
