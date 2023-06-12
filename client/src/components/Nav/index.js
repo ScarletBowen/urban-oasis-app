@@ -141,7 +141,7 @@ function Nav() {
     
               {/* Desktop Menu */}
               <div className="md:flex hidden">
-                <Link to="/myprofile" className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500">
+                <Link to="/profile" className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500">
                   My Profile
                 </Link>
                 <Link to="/favoriteplaces" className="px-6 py-2 text-sm text-gray-700 dark:text-gray-200 hover:text-indigo-500">
@@ -157,7 +157,7 @@ function Nav() {
     
         {/* Mobile Menu */}
         <div className="md:hidden">
-          <Link to="/myprofile" className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">
+          <Link to="/profile" className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">
             My Profile
           </Link>
           <Link to="/favoriteplaces" className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-700 bg-transparent rounded-lg hover:bg-gray-200 focus:bg-indigo-400 focus:outline-none focus:shadow-outline-indigo">

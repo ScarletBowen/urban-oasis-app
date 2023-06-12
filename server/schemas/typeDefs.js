@@ -3,7 +3,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     _id: String!
-    user_id: String!
+    user_id: String
     username: String!
     fullname: String!
     email: String!
@@ -11,6 +11,7 @@ const typeDefs = gql`
     gender: String
     avatar: String
     password: String!
+    friend_id: String!
     friendCount: Int
     friends: [User]
     savedPlaces: [String!]
@@ -69,20 +70,6 @@ const typeDefs = gql`
 
   type OpeningHours {
     open_now: Boolean!
-  }
-
-  type Query {
-    getUser: User
-  }
-
-  type Mutation {
-    register(
-      username: String!
-      fullname: String!
-      email: String!
-      password: String!
-    ): AuthPayload!
-    login(username: String!, password: String!): AuthPayload!
   }
 
   type Comment {
@@ -146,13 +133,12 @@ const typeDefs = gql`
   type Query {
     getUser: User
     getOtherUser(username: String!): User
-  }
-
-  type Query {
     findAllParks: [Place]
     getPlaceDetails(place_id: String!): Place
     getFavoritePlaces: [Place]
+    getFriends: [User]
   }
+
 
   type Mutation {
     register(
@@ -162,22 +148,14 @@ const typeDefs = gql`
       password: String!
     ): AuthPayload!
     login(username: String!, password: String!): AuthPayload!
-  }
-
-  type Mutation {
     addFriend(friendId: String!): User
     removeFriend(friendId: String!): User
-  }
-
-  type Mutation {
     searchPlace(name: String!): [Place]
     savePlace(placeId: String!): User
     removePlace(placeId: String!): User
-  }
-
-  type Mutation {
     addComment(commentBody: String!, place_id: String!): User
     removeComment(commentId: ID!): User
   }
+
 `;
 module.exports = typeDefs;

@@ -5,6 +5,7 @@ const {
 } = require("apollo-server-express");
 
 const models = require("../models");
+const User = require("../models/User");
 const Place = require("../models/Place");
 const { generateToken } = require("../utils/auth");
 
@@ -18,12 +19,12 @@ const resolvers = {
         throw new AuthenticationError(error.message);
       }
     },
-    getOtherUser: async (parent, { username }) => {
+    getOtherUser: async (root, args) => {
+      const { username } = args;
       return User.findOne({ username })
-        .select("-__v -password")
-        .populate("friends")
-        .populate("posts");
+          .select('-__v -password')
     },
+    
     findAllParks: async (root, args) => {
       try {
         const allParks = await Place.find();
@@ -58,6 +59,18 @@ const resolvers = {
         throw error;
       }
     },
+    getFriends: async (root, args, { user }) => {
+      try {
+        const friends = await User.find({ _id: { $in: user.friends } });
+        if (!friends) {
+          throw new Error("Friends not found");
+        }
+        return friends;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
   },
 
   Mutation: {
