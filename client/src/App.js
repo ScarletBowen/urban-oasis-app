@@ -32,6 +32,19 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const AuthenticationRoute = () => {
+  // Perform authentication checks here
+  // Example: Check if the user is authenticated based on localStorage.getItem("id_token")
+
+  if (localStorage.getItem("id_token")) {
+    // User is authenticated
+    return <p>Authenticated</p>;
+  } else {
+    // User is not authenticated
+    return <p>Unauthenticated</p>;
+  }
+};
+
 // Routes
 const router = createBrowserRouter([
   {
@@ -104,6 +117,11 @@ const router = createBrowserRouter([
         <Footer />
       </>
     ),
+  },
+  {
+    // Add the separate authentication route
+    path: "auth",
+    element: <AuthenticationRoute />,
   },
 ]);
 
