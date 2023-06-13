@@ -26,7 +26,6 @@ function PlaceDetails() {
     onCompleted: () => {
       console.log("Comment saved successfully");
       setCommentText(""); // Clear the comment input field after saving
-      window.location.reload();
     },
   });
 

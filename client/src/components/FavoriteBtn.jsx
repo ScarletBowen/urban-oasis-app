@@ -18,7 +18,7 @@ export default function FavoriteBtn({ placeId, isFavorited }) {
           className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-white transition-colors"
           onClick={() => {
             savePlace({ variables: { placeId } });
-            window.location.reload();
+            
 
           }}
         >
@@ -29,7 +29,7 @@ export default function FavoriteBtn({ placeId, isFavorited }) {
           className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-white transition-colors"
           onClick={() => {
             removePlace({ variables: { placeId } });
-            window.location.reload();
+           
           }}
         >
           Remove from Favorites
