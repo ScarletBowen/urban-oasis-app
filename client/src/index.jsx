@@ -14,7 +14,7 @@ import "./index.css";
 
 import Auth from "./utils/auth";
 import router from "./App";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
 
 
 const httpLink = createHttpLink({
@@ -46,4 +46,4 @@ root.render(
   </ApolloProvider>
 );
 
-serviceWorkerRegistration.register();
+
