@@ -14,6 +14,8 @@ import "./index.css";
 
 import Auth from "./utils/auth";
 import router from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -43,3 +45,5 @@ root.render(
     <RouterProvider router={router} />
   </ApolloProvider>
 );
+
+serviceWorkerRegistration.register();
