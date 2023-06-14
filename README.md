@@ -2,7 +2,7 @@
 
 The purpose of this project was to create a MERN + GraphQL application for city dwellers looking for a greenspace in their respective area or wherever they are traveling to. The intent of this application is for users to favorite their spots, add or delete friends, search for different parks in their area. In addition, users are able to sign up and in to view these different features and come back right where they left off.
 
-<p align="center">:sparkles: <a href="">Visit deployed application here</a> :sparkles:</p>
+<p align="center">:sparkles: <a href="https://urban-oasis.herokuapp.com/">Visit Deployed Application Here</a> :sparkles:</p>
 
 ![readme](https://github.com/ScarletBowen/urban-oasis-app/assets/109751916/877d3abb-6b54-4674-8c2f-cdcf95d6b992)
 
